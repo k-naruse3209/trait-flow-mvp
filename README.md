@@ -1,6 +1,7 @@
 # trait-flow-mvp
 
 ## ドキュメント
+- プロトタイプ概要（かんたん説明）: `docs/overview/prototype_brief_ja.md`
 - プロトタイプ仕様書（簡易版）: `docs/prototype_spec_ja.md`
 - アーキテクチャ概要: `docs/design/architecture_overview.md`
 - データモデル: `docs/design/data_model.md`
