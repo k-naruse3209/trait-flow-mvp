@@ -10,3 +10,6 @@
 - フロントエンド設計: `docs/design/frontend_flows.md`
 - プロンプト設計: `docs/design/prompt_templates.md`
 - 実装ロードマップ: `docs/design/project_plan.md`
+- プレゼン資料素案（日本語）: `docs/slides/prototype_pitch_ja.md`
+- Presentation Outline (English): `docs/slides/prototype_pitch_en.md`
+- Bài thuyết trình (Tiếng Việt): `docs/slides/prototype_pitch_vi.md`
