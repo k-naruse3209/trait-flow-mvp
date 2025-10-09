@@ -44,16 +44,16 @@
 ```mermaid
 flowchart LR
   subgraph 初回オンボーディング
-    User -->|TIPI 回答| EdgeFnTipi[Edge Function (tipi-submit)]
-    EdgeFnTipi -->|スコア保存| DB[(PostgreSQL)]
-    DB -->|結果取得| AppUITipi[TIPI結果画面]
+    User -->|TIPI 回答| EdgeFnTipi["Edge Function (tipi-submit)"]
+    EdgeFnTipi -->|スコア保存| DB[("PostgreSQL")]
+    DB -->|結果取得| AppUITipi["TIPI結果画面"]
   end
   subgraph 日次フロー
-    User -->|チェックイン| EdgeFn[Edge Function (checkins)]
-    EdgeFn -->|気分 + TIPI + 直近平均| Prompt[テンプレ生成]
-    Prompt -->|Structured Output| OpenAI[OpenAI Responses]
+    User -->|チェックイン| EdgeFn["Edge Function (checkins)"]
+    EdgeFn -->|気分 + TIPI + 直近平均| Prompt["テンプレ生成"]
+    Prompt -->|Structured Output| OpenAI["OpenAI Responses"]
     OpenAI --> EdgeFn --> DB
-    DB --> AppUI[アプリUI]
+    DB --> AppUI["アプリUI"]
   end
 ```
 - バックエンドは Supabase（PostgreSQL + Edge Functions）で構築。
