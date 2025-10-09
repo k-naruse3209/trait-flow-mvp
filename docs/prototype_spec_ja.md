@@ -1,193 +1,137 @@
-# Trait Flow MVP プロトタイプ仕様書
+# Trait Flow MVP プロトタイプ仕様書（簡易版）
 
 ## 0. 背景
-- 本プロトタイプは `requirements_AI_assistant` で定義された AI コーチングシステムの中核体験を最小構成で検証することを目的とし、`trait-flow-mvp` リポジトリで管理する。
-- 正式版で要求される A〜I モジュールをベースに、ユーザー価値仮説検証と技術的成立性の確認に必要な機能のみを段階的に実装する。
-- 対象利用者は日本語話者の個人ユーザー（バイリンガル対応は Stretch 目標）。デバイスはモバイル Web を第一優先とする。
+- `requirements_AI_assistant` で定義されたフル機能版を見据えつつ、価値検証とフィードバック収集を最短で行うための「スモールスタート版」。
+- 数週間で 5〜10 名のテストユーザーに提供できることを優先し、実装コストが高いワークフロー（Symanto 連携・時系列解析・高度な信頼性制御）は段階的に導入する。
+- 主要利用シナリオは日本語モバイル Web。バックエンドは Supabase（PostgreSQL + Edge Functions）を前提にするが、Firebase/Next API Routes でも代替可能。
 
-## 1. 目的と成果指標
-- **プロトタイプの目的**
-  - Big Five を軸にしたパーソナライゼーションと日次介入がユーザーの気付き・行動変化を促すかを検証する。
-  - Symanto API＋OpenAI Responses API を用いた自動ワークフローが実運用レベルの安定性で動作するかを確認する。
-- **主要成果指標 (MVP 時点)**
-  - オンボーディング完了率 ≥ 70%（IPIP-NEO-120 全問回答）
-  - 日次チャット送信率 ≥ 40%（登録ユーザーのうち）
-  - 介入カードの開封率 ≥ 60%、CTA 実行率 ≥ 20%
-  - システム安定性: Symanto・OpenAI 呼び出し成功率 ≥ 95%、再試行による遅延 < 5 秒中央値
+## 1. 検証仮説と成功指標
+- **検証仮説**
+  1. 簡易 Big Five（10 問）と日次チェックインの組み合わせでも、ユーザーは「パーソナライズされた気付き」を感じる。
+  2. 過去のチェックイン記録を踏まえた介入メッセージは、汎用的な提案よりも役に立つと評価される。
+  3. OpenAI Responses API だけでも日次運用に耐えるレスポンスと安定性を確保できる。
+- **成功指標（2 週間のパイロットを想定）**
+  - オンボーディング完了率 ≥ 80%（10 問回答）
+  - 日次チェックイン継続率 ≥ 50%（登録ユーザーの半数が 4 回以上投稿）
+  - 介入メッセージの「役に立った」自己評価 ≥ 60%
+  - システム稼働: OpenAI 呼び出し成功率 ≥ 97%、レスポンス時間中央値 < 5 秒
 
 ## 2. スコープ
-- **MVP で実装する機能**
-  - IPIP-NEO-120 ベースのオンボーディングとスコア正規化 (A)
-  - Symanto Big Five/Communication Style の日次取り込みと正規化・品質推定 (A/C)
-  - 単純ベイズ線形統合（precision-weighted average）の実装 (B)
-  - EWMA と直近傾きに限定した特徴抽出 (D)
-  - ルールベース (deterministic) の JITAI プランナー初期版 (E)
-  - OpenAI Responses API を用いた介入メッセージ生成と最小限の後処理（Structured Outputs + Moderation + 長さ制御）(F)
-  - 行動ログ・KPI の最小スキーマとダッシュボード用集計 (G)
-  - データ不変条件（追記専用・値域チェック・権限分離）と基本的な監査ログ (H)
-  - Symanto/OpenAI 呼び出しの再試行・サーキットブレーカ・レート制御（n8n ベースで実装）(I)
-- **スコープ外（将来拡張）**
-  - 多言語対応と高度な翻訳品質評価（現状は日本語のみ対応、英語は Stretch）
-  - 強化学習/Contextual Bandit を用いたプランナー高度化（MVP はルールベース）
-  - 変化点検知（CUSUM/BOCPD）の自動化、ドリフト検知の高度化
-  - リッチなダッシュボード（MVP は簡易な表・グラフに留める）
-  - モバイルアプリネイティブ実装（PWA で代替）
+### 実装する機能
+- TIPI（Ten Item Personality Inventory）ベースの 10 問オンボーディングと即時スコア表示。
+- 日次チェックイン：気分スライダー、エネルギーレベル、テキストメモ（任意）の 3 入力。
+- シンプルな介入生成：テンプレート + ルールベースで文脈（TIPI スコア・直近 3 回の気分平均）を差し込み、OpenAI Responses API でリライト。
+- 履歴画面：過去のチェックインとメッセージをリスト表示。
+- 最小限のメトリクス：日次アクティブ数、連続投稿日数、メッセージ評価（5 段階）を Supabase 上で集計。
 
-## 3. ユーザーフロー（MVP）
-- **オンボーディング**
-  1. ユーザーがモバイル Web でサインアップし、IPIP-NEO-120 を回答。
-  2. n8n Webhook が回答を受信し、正規化モジュール (A) が T スコア / p01 を生成。
-  3. ベースライン (`baseline_profiles`) に保存し、ベイズ Prior を初期化。
-- **日次測定**
-  1. ユーザーがチャット UI で日次リフレクションを入力。
-  2. 言語判定（日本語のみ想定）→ Symanto API 呼び出し → Big Five/CS/PT を取得。
-  3. 正規化 (A) と品質推定 (C) を適用し、Posterior 計算 (B) → `ocean_timeseries` に保存。
-  4. EWMA/傾き (D) を計算し、プランナー (E) へコンテキストを渡す。
-- **介入配信**
-  1. プランナー (E) が Posterior・確信度・Sentiment をもとに介入テンプレートを決定。
-  2. OpenAI Responses API でメッセージを生成し、Structured Outputs で整形・Moderation 実施 (F)。
-  3. メッセージを UI/メール/Push（優先度順）で配信し、`behavior_events` に追記。
-  4. KPI 集計 (G) と監査ログ保存 (H) を行う。
+### スコープ外（今後の拡張）
+- Symanto API による自動性格推定、ベイズ統合、EWMA/傾き算出。
+- KPI ダッシュボード、A/B テスト、複雑なレコメンドロジック。
+- 信頼性制御（サーキットブレーカ、レートリミット）や完全な監査ログ。
+- 多言語対応、Push 通知、ネイティブアプリ。
+
+## 3. ユーザーフロー（シンプル版）
+1. **オンボーディング（約 3 分）**
+   - ユーザーがメールのみでサインアップ→TIPI 10 問を回答→即座に 5 大特性スコアを表示。
+2. **ホーム画面**
+   - 本日のチェックインを促すカードと、前回メッセージの抜粋を表示。
+3. **日次チェックイン（約 1 分）**
+   - 気分スライダー（1〜5）、エネルギーレベル（低/中/高）、メモ（任意）。
+   - 送信後、最新と過去 3 回までの平均を参照して介入メッセージを生成。
+4. **メッセージ表示**
+   - テンプレート + OpenAI リライト後のメッセージと CTA を提示し、ユーザーは 5 段階評価を付けられる。
+5. **履歴画面**
+   - チェックインとメッセージ履歴を時系列で参照できる。
 
 ### 3.1 簡易アーキテクチャ図
 ```mermaid
 flowchart LR
-  subgraph Client[Mobile Web Client]
-    Onboard[IPIP Form]
-    Chat[Daily Chat]
-    Feed[Intervention Feed]
+  subgraph Client[Web / PWA]
+    Onboard[TIPI Form]
+    Checkin[Daily Check-in]
+    History[History View]
   end
-  subgraph Orchestrator[n8n]
-    W1[Webhook]
-    FN[Function Nodes]
-    DBN[MySQL Nodes]
+  subgraph Backend[Supabase Edge Functions]
+    API[REST API]
   end
-  subgraph Core[Modules A–I]
-    A_mod[A 正規化]
-    B_mod[B ベイズ統合]
-    C_mod[C 品質]
-    D_mod[D 特徴]
-    E_mod[E プランナー]
-    F_mod[F 後処理]
-    G_mod[G KPI]
-    H_mod[H 不変条件]
-    I_mod[I 信頼性]
-  end
-  subgraph Data[MySQL]
-    Base[(baseline_profiles)]
-    Times[(ocean_timeseries)]
-    Beh[(behavior_events)]
-    Audit[(audit_log)]
-  end
-  subgraph External[External APIs]
-    Sym[Symanto API]
-    OAI[OpenAI Responses]
+  DB[(PostgreSQL)]
+  subgraph External[External Service]
+    OAI[OpenAI Responses API]
   end
 
-  Onboard --> W1 --> A_mod --> H_mod --> Base
-  Chat --> W1 --> I_mod --> Sym --> A_mod --> C_mod --> B_mod --> Times
-  B_mod --> D_mod --> E_mod --> I_mod --> OAI --> F_mod --> Feed
-  Feed --> Beh
-  Beh --> G_mod
+  Onboard --> API --> DB
+  Checkin --> API --> DB
+  API --> OAI --> API
+  API --> History
 ```
 
-## 4. モジュール別 MVP 仕様
-- **A. 正規化**
-  - IPIP-NEO-120 の採点ロジックを再利用。Symanto 出力は 0–1 を p01 として保存し、T スコアは線形近似 (T=100*p01) を初期値として使用。
-  - `norm_version` を必須。欠損値は回答除外・Flag 付け（補完しない）。
-- **B. ベイズ統合**
-  - Prior（Baseline）と Likelihood（日次測定）を精度重み付きで統合。
-  - 分散の下限を 0.02、上限を 0.25 に設定。Posterior μ/σ² を T/p01 両系で保存。
-- **C. 確信度 / 品質**
-  - トークン数、翻訳使用有無、Symanto レスポンス信頼度（提供される場合）で観測分散 σx² を調整。
-  - 品質フラグ（`ok`, `short_text`, `symanto_error` など）を `text_personality_estimates` に保存。
-- **D. 時系列特徴**
-  - EWMA（α=0.3 固定）と直近 7 日の線形傾きを計算。
-  - 傾きの有意性は閾値ベース（|slope| ≥ 0.1 でトレンド有り）。
-- **E. 介入プランナー**
-  - 3 種の介入テンプレートを用意（例：リフレクション、行動提案、セルフコンパッション）。
-  - Posterior と Sentiment、品質フラグを条件に強度（軽・標準・強）と CTA を決定。
-  - 低確信度（σ² > 0.2）時はリマインダー型の軽いメッセージを選択。
-- **F. LLM 後処理**
-  - OpenAI Responses API で JSON Schema を指定し、`{title, body, cta_text, cta_action}` を生成。
-  - Moderation API を通過しない場合は定型メッセージにフォールバック。
-  - 改行・リンク形式・XSS サニタイズを実施。
-- **G. KPI**
-  - `behavior_events` を基礎に、日次の開封率・CTA 実行率・連続記録日数を算出。
-  - KPI は週次バッチ（n8n Scheduler）で集計し、CSV/Google Sheets へ出力。
-- **H. 不変条件**
-  - MySQL で CHECK 制約（p01: 0–1、T: 0–100）、UNIQUE(`idempotency_key`) を設定。
-  - 追記専用テーブルについてはアプリ層で UPDATE/DELETE を禁止。
-  - 監査ログ (`audit_log`) に外部 API 入出力とプロンプトを記録。
-- **I. 信頼性制御**
-  - Symanto/OpenAI 呼び出しは最大 3 回再試行、指数バックオフ (1s, 2s, 4s)。
-  - HTTP 429/5xx/timeout のみ再試行対象。Retry-After を尊重。
-  - サーキットブレーカ条件：連続 5 回失敗で 5 分間ブレーク。
+## 4. 機能仕様（Lite モジュール）
+- **Lite-A: オンボーディング & スコア表示**
+  - TIPI 10 問（各 7 段階）をクライアントで採点 → 5 特性スコア（0〜100）に線形変換。
+  - `baseline_traits` テーブルに `traits_p01`（0〜1）と `traits_T`（0〜100）を保存。
+  - スコア結果をカード表示し、もっと詳しい分析の期待値調整として「現状は簡易スコア」である旨を記載。
+- **Lite-B: 日次チェックイン**
+  - 入力: `mood_score`（1〜5）、`energy_level`（enum: low/mid/high）、`free_text`（上限 280 文字）。
+  - 投稿時に `checkins` テーブルへ保存。直近 3 件の `mood_score` 平均をリアルタイム計算。
+  - 送信直後に Lite-E へトリガーする。
+- **Lite-E: 介入メッセージ生成**
+  - 介入テンプレートは 3 種（振り返り・行動提案・セルフコンパッション）。
+  - テンプレート選択ロジック（例）:
+    - 平均気分 ≤ 2.5 → セルフコンパッション
+    - 平均気分 2.5〜3.5 → 振り返り + TIPI の低め特性を補う質問
+    - 平均気分 > 3.5 → 行動提案
+  - OpenAI Responses API（`gpt-4.1-mini`）へテンプレートとユーザー情報（TIPI 上位/下位 1 特性、直近チェックイン要約）を渡し、`{title, body, cta_text}` 形式で生成。
+  - 応答失敗時はテンプレート文章をそのまま表示。
+- **Lite-G: ログと簡易指標**
+  - `interventions` テーブルに生成メッセージと CTA を保存。
+  - ユーザーが付ける 5 段階評価を `feedback_score` として保持。
+  - Supabase SQL で日次アクティブ数・平均評価を計算し、ダッシュボード（Supabase Studio or Google Sheets）に反映。
+- **Lite-H: データ保護（最小限）**
+  - PII はメールアドレスのみ。API と Edge Functions は Supabase の RLS を活用し、自ユーザーのデータのみ取得可能にする。
+  - ログは 90 日でアーカイブ（将来の監査ログ導入を前提に削除はしない）。
 
-## 5. データモデル（MVP スキーマ）
+## 5. データモデル（最小構成）
 - `users`
-  - `id`, `email`, `locale`, `created_at`
-- `baseline_profiles`
-  - `id`, `user_id`, `instrument`, `administered_at`, `ocean_T` (JSON), `ocean_p01` (JSON), `norm_version`, `raw_payload` (JSON), `created_at`
-- `text_personality_estimates`
-  - `id`, `user_id`, `message_id`, `observed_at`, `ocean_p01` (JSON), `ocean_T` (JSON), `sigma_x2` (JSON), `quality_flag`, `symanto_trace` (JSON), `created_at`
-- `ocean_timeseries`
-  - `id`, `user_id`, `observed_at`, `posterior_mu_T` (JSON), `posterior_mu_p01` (JSON), `posterior_sigma2` (JSON), `source` (`baseline`|`chat`), `created_at`
-- `ocean_features`
-  - `id`, `user_id`, `observed_at`, `ewma_T` (JSON), `slope_T` (JSON), `created_at`
-- `intervention_plans`
-  - `id`, `user_id`, `planned_at`, `template_id`, `intensity`, `inputs_snapshot` (JSON), `llm_output` (JSON), `moderation_result` (JSON)
-- `behavior_events`
-  - `id`, `user_id`, `event_type` (`delivered`|`opened`|`cta_clicked`), `intervention_id`, `occurred_at`, `idempotency_key`, `device_info` (JSON)
-- `audit_log`
-  - `id`, `event_time`, `source` (`symanto`|`openai`|`planner`), `request_payload` (JSON), `response_payload` (JSON), `status`, `latency_ms`
+  - `id`, `email`, `created_at`
+- `baseline_traits`
+  - `id`, `user_id`, `traits_p01` (JSON: O,C,E,A,N), `traits_T` (JSON), `instrument` (`tipi_v1`), `administered_at`
+- `checkins`
+  - `id`, `user_id`, `mood_score` (int), `energy_level` (text), `free_text` (text), `created_at`
+- `interventions`
+  - `id`, `user_id`, `checkin_id`, `template_type`, `message_payload` (JSON), `feedback_score` (int), `created_at`
 
-## 6. 外部サービス連携
-- **Symanto API**
-  - エンドポイント: `/big5`, `/communication_style`, `/personality_traits`
-  - 認証: API Key（環境変数で管理）。n8n HTTP Request ノードに設定。
-  - レート制限: 60 req/min を想定。n8n Token Bucket で 40 req/min にクリップ。
-  - 障害時フォールバック: 直近 Posterior を再利用し、「最新データ未取得」メッセージを送信。
+## 6. 外部サービス
 - **OpenAI Responses API**
-  - モデル: `gpt-4.1-mini`（コストと品質のバランス）を想定。
-  - Structured Outputs: 介入カードの JSON Schema を定義し、post-processing の負荷を削減。
-  - 安全性: Moderation API→NG の場合は固有 ID の安全テンプレートへ置換。
-  - コストガード: 1 日 50 ユーザー想定で平均 2 コール/日 → 月額概算を算出し、利用状況をメトリクスに記録。
+  - モデル: `gpt-4.1-mini`（低コスト）を標準とし、不足時のみ `gpt-4.1` へ切替。
+  - Structured Output: `title`（30 文字以内）、`body`（300 文字以内）、`cta_text`（40 文字以内）を JSON で要求。
+  - 失敗時: 既存テンプレート文章を返却し、`interventions.message_payload.fallback=true` を設定。
+- **オプション連携（Phase 2 以降）**
+  - Slack Webhook / Email（SendGrid）でリマインダー送信。
+  - 将来の Symanto 連携は別フェーズで仕様策定。
 
-## 7. 非機能要件
-- **可用性**: 平日 8:00〜24:00 (JST) の稼働を保証。夜間は再試行ベースでバッチ処理のみ。
-- **パフォーマンス**: 日次ワークフローは 30 秒以内に完了。介入生成は 10 秒以内を目標。
-- **監査性**: すべての外部 API 呼び出しに対して `audit_log` へ request/response/latency を記録。
-- **セキュリティ**: PII は最小限（email, locale）。行動ログとスコアを分離し、必要なら将来的に匿名化を追加。
-- **障害対応**: 再試行失敗時は PagerDuty 等への通知（MVP は Slack Webhook で代用）。
+## 7. 非機能要件（簡易版）
+- **稼働時間**: 8:00〜24:00 (JST) を想定。夜間は通知停止。
+- **レスポンス**: チェックイン→メッセージ表示まで 8 秒以内（OpenAI 呼び出し含む）。
+- **可観測性**: Supabase Edge Functions のログと OpenAI Usage を毎日確認。重大な失敗は Slack に通知（Webhook）。
+- **セキュリティ**: Supabase Auth + RLS、環境変数で OpenAI API キーを管理。
 
-## 8. 開発ロードマップ（参考）
-1. **Phase 0: 設計と環境構築 (Week 1)**
-   - n8n + MySQL（Docker Compose）環境を立ち上げ、API キー管理を整備。
-   - テーブルスキーマとマイグレーションの骨組みを作成。
-2. **Phase 1: オンボーディングフロー (Week 2)**
-   - IPIP フォーム、正規化 (A)、ベイズ初期化 (B)、Baseline 保存 (H) を実装。
-3. **Phase 2: 日次測定パイプライン (Weeks 3–4)**
-   - Symanto 連携 (A/C/I)、Posterior 更新 (B)、特徴抽出 (D) を構築。
-4. **Phase 3: 介入生成と配信 (Weeks 5–6)**
-   - プランナー (E)、OpenAI 後処理 (F)、メッセージ配信と KPI ログ (G) を完成。
-5. **Phase 4: 品質保証とパイロット (Weeks 7–8)**
-   - エンドツーエンドテスト、10 名規模のパイロット、メトリクス監視を実施。
+## 8. ロードマップ（8 週間想定）
+1. **Week 1**: 情報設計・TIPI 実装・Supabase スキーマ作成。
+2. **Week 2**: チェックイン画面とバックエンド API。OpenAI 呼び出しの疎通確認。
+3. **Week 3**: メッセージテンプレート設計、介入生成フロー完成。
+4. **Week 4**: 履歴画面・評価 UI・簡易メトリクス。
+5. **Week 5**: クローズドテスト（社内）、改善点反映。
+6. **Weeks 6–8**: パイロット 5〜10 名、週次で定性/定量レビュー。必要なら Symanto 事前調査。
 
-## 9. 開発体制とツール
-- **開発体制**: 2〜3 名（ワークフロー/バックエンド 1、フロントエンド 1、ML/データ 0.5）
-- **管理ツール**: GitHub Projects（タスク管理）、Linear/Notion（要件・ナレッジ）
-- **監視**: n8n 内蔵メトリクス + Grafana Cloud（将来的に）／MVP は Slack 通知中心。
+## 9. リスクとフォロー
+- OpenAI だけに依存するため、レスポンス不安定時のバックアップ（テンプレート文章）を整備する。
+- 気分データの扱いに関する利用規約・プライバシーポリシーはパイロット開始前に整備。
+- テスト期間中は手動でのサポート（例: Slack グループ）を設け、仕様ギャップを迅速にキャッチアップ。
+- 将来フル機能へ拡張する場合は `requirements_AI_assistant` の A〜I モジュールを段階的に導入する計画を別途策定。
 
-## 10. リスクと未決事項
-- Symanto API の SLA が非公開のため、障害時のカバレッジに不確定要素がある → 代替 API の調査が必要。
-- OpenAI のレスポンス品質が一定でない場合はルールベース生成のバックアップを検討。
-- ユーザーデータ保護に関する法的確認（利用規約・プライバシーポリシー）が未整備。
-- KPI 計測のためのイベント定義が追加検討中（CTA の種類、二次行動など）。
-
-## 11. 参考資料
+## 10. 参考資料
 - `requirements_AI_assistant/README.md`
 - `requirements_AI_assistant/docs/system_flow_playbook_ja.md`
-- `requirements_AI_assistant/docs/specification/algorism/*.md`
-- Symanto API 公式ドキュメント、OpenAI Responses API リファレンス、n8n ドキュメント
-
+- TIPI: Gosling et al. (2003) Ten Item Personality Inventory
+- OpenAI Responses API リファレンス
+- Supabase Auth / Row Level Security ドキュメント
