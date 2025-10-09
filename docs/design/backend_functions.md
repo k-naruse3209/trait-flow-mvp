@@ -15,8 +15,16 @@ Supabase Edge Functions（Deno）で実装する主要関数の役割と擬似�
   - 呼び出し回数やレスポンス時間をログに記録。
 - `selectRecentCheckins(userId, count)`  
   - 直近 `count` 件（デフォルト 3）を取得し、平均 mood を計算。
-- `insertIntervention(params)`  
-  - `interventions` へ挿入し、結果を返却。
+- `fetchLatestTraits(supabase, userId)`  
+  - `baseline_traits` の最新レコードを取得（なければ 400 を返す）。
+- `chooseTemplate(context)`  
+  - 気分平均や TIPI スコアを基にテンプレート（reflection/action/compassion）を返す。
+- `buildPrompt(payload)`  
+  - プロンプトテンプレートへプレースホルダを埋め込み、OpenAI へ渡す文字列を生成。
+- `pickTopTrait(traitsP01)`  
+  - 最も高い特性と値を返すユーティリティ（CTA の文脈に利用）。
+- `fallbackMessage(template)`  
+  - OpenAI エラー時に返す定型メッセージ（`fallback: true` を付与）。
 
 ## 2. `tipi-submit`
 - **目的**: TIPI 回答の採点と保存。
@@ -29,6 +37,8 @@ const schema = z.object({
   })).length(10),
   administered_at: z.string().datetime()
 });
+
+const TEMPLATE_VERSION = '1.0.0';
 
 export default withAuth(async (req, { userId, supabase }) => {
   const { answers, administered_at } = validate(await req.json(), schema);
@@ -78,18 +88,36 @@ export default withAuth(async (req, { userId, supabase }) => {
   try {
     message = await callOpenAI(prompt);
   } catch (err) {
-    message = fallbackMessage(template);
+    message = fallbackMessage(template); // { title, body, cta_text, fallback: true }
   }
+
+  const topTrait = pickTopTrait(traits.traits_p01); // returns { code: 'O', value: 0.62 }
+
+  const promptTrace = {
+    template: template.type,
+    inputs: {
+      recentMoodAvg: recent.avg,
+      moodScore: input.mood_score,
+      energyLevel: input.energy_level,
+      topTrait
+    },
+    version: TEMPLATE_VERSION
+  };
 
   const { data: intervention } = await supabase.from('interventions')
     .insert({
       user_id: userId,
       checkin_id: checkin.id,
       template_type: template.type,
-      message_payload: { ...message, template_type: template.type },
-      fallback: message.fallback
+      message_payload: {
+        title: message.title,
+        body: message.body,
+        cta_text: message.cta_text,
+        prompt_trace: promptTrace
+      },
+      fallback: message.fallback ?? false
     })
-    .select('id, template_type, message_payload, fallback')
+    .select('id, template_type, message_payload, fallback, feedback_score, created_at')
     .single();
 
   return jsonResponse({ checkin, intervention: formatIntervention(intervention) });

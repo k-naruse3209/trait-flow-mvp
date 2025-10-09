@@ -115,7 +115,7 @@
   1. `checkins` にレコード挿入
   2. `baseline_traits` と直近 3 件のチェックインを取得
   3. テンプレート決定 → OpenAI Responses API 呼び出し
-  4. `interventions` に挿入し、レスポンスに含める
+  4. `interventions` に挿入し、レスポンスに含める（`prompt_trace` はサーバー側に保存され、レスポンスには含めない）
 - **エラー**
   - 400: 値域エラー（mood_score, energy_level）
   - 500: OpenAI 呼び出し失敗（`fallback: true` でテンプレ返却）
@@ -164,6 +164,8 @@
     ]
   }
   ```
+- **備考**
+  - `prompt_trace` や `moderation` など内部用メタデータはレスポンスに含めず、必要に応じて管理画面や監査 API で参照する。
 
 ### 5.2 POST `/functions/v1/interventions/:id/feedback`
 - **Request**

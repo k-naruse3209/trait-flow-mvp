@@ -66,7 +66,10 @@ create table public.baseline_traits (
     traits_p01 ? 'O' and traits_p01 ? 'C' and traits_p01 ? 'E'
     and traits_p01 ? 'A' and traits_p01 ? 'N'
   ),
-  traits_T jsonb not null,
+  traits_T jsonb not null check (
+    traits_T ? 'O' and traits_T ? 'C' and traits_T ? 'E'
+    and traits_T ? 'A' and traits_T ? 'N'
+  ),
   instrument text not null default 'tipi_v1',
   administered_at timestamptz not null,
   created_at timestamptz default now()
@@ -78,6 +81,7 @@ create table public.checkins (
   mood_score int not null check (mood_score between 1 and 5),
   energy_level text not null check (energy_level in ('low','mid','high')),
   free_text text,
+  constraint free_text_length check (char_length(coalesce(free_text, '')) <= 280),
   created_at timestamptz default now()
 );
 
@@ -97,18 +101,19 @@ create table public.interventions (
 ## 4. JSON カラム仕様
 - `traits_p01` / `traits_T`: `{ "O": 0.62, "C": 0.48, ... }` 形式。  
 - `message_payload`: 
+  - 永続化例
   ```json
   {
     "title": "今日の振り返り",
     "body": "昨日より少し落ち着いているようですね…",
     "cta_text": "3分だけ深呼吸する",
-    "fallback": false,
     "prompt_trace": {
       "template": "reflection",
       "inputs": {
         "top_trait": "O",
         "recent_mood_avg": 3.1
-      }
+      },
+      "version": "1.0.0"
     }
   }
   ```
