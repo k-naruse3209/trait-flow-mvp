@@ -12,6 +12,7 @@ Tài liệu này dùng để giải thích đơn giản mục tiêu và trải n
 
 ## 2. Một ngày trải nghiệm mẫu
 ```
+⓪ Lần đầu (sau khi đăng ký): trả lời 10 câu TIPI → xem kết quả & hướng dẫn sử dụng
 ① Buổi sáng: mở ứng dụng và đọc lại thông điệp của ngày hôm trước
 ② Buổi trưa: ghi nhanh cảm xúc & mức năng lượng (có thể thêm ghi chú)
 ③ Ngay lập tức: nhận gợi ý dựa trên kiểu tính cách và trạng thái gần đây
@@ -31,7 +32,7 @@ Tài liệu này dùng để giải thích đơn giản mục tiêu và trải n
 ## 4. Các màn hình người dùng thấy
 | Màn hình | Mục đích | Mô tả ngắn |
 |----------|----------|------------|
-| Onboarding | Hiểu kiểu tính cách | Trả lời 10 câu để xem biểu đồ 5 đặc tính chính |
+| Onboarding | Hiểu kiểu tính cách | Trả lời 10 câu để xem biểu đồ 5 đặc tính chính (chỉ xuất hiện lần đầu) |
 | Trang chủ | Cập nhật trạng thái trong ngày | Xem thông điệp gần nhất và nút check-in “Hôm nay thế nào?” |
 | Cửa sổ Check-in | Nhập cảm xúc | Thanh trượt cảm xúc + nút năng lượng + ô ghi chú |
 | Thông điệp can thiệp | Nhận gợi ý ngay | OpenAI định dạng tiêu đề + nội dung + CTA |
@@ -42,11 +43,18 @@ Tài liệu này dùng để giải thích đơn giản mục tiêu và trải n
 ## 5. Hậu trường hoạt động ra sao?
 ```mermaid
 flowchart LR
-  User -->|Check-in| EdgeFn[Edge Function]
-  EdgeFn -->|Mood + TIPI + trung bình gần đây| Prompt[Tạo mẫu]
-  Prompt -->|Structured Output| OpenAI[OpenAI Responses]
-  OpenAI --> EdgeFn --> DB[(PostgreSQL)]
-  DB --> AppUI[Giao diện ứng dụng]
+  subgraph Onboarding lần đầu
+    User -->|Trả lời TIPI| EdgeFnTipi[Edge Function (tipi-submit)]
+    EdgeFnTipi -->|Lưu điểm| DB[(PostgreSQL)]
+    DB -->|Trả kết quả| AppUITipi[Màn hình kết quả TIPI]
+  end
+  subgraph Quy trình hằng ngày
+    User -->|Check-in| EdgeFn[Edge Function (checkins)]
+    EdgeFn -->|Mood + TIPI + trung bình gần đây| Prompt[Tạo prompt]
+    Prompt -->|Structured Output| OpenAI[OpenAI Responses]
+    OpenAI --> EdgeFn --> DB
+    DB --> AppUI[Giao diện ứng dụng]
+  end
 ```
 - Backend xây dựng bằng Supabase (PostgreSQL + Edge Functions).
 - OpenAI Responses API tạo thông điệp dựa trên template.

@@ -12,6 +12,7 @@
 
 ## 2. 1日の体験イメージ
 ```
+⓪ 初回（サインアップ直後）：TIPI 10 問に回答 → スコアを確認し、使い方ガイドを読む
 ① 朝：アプリを開くと前日のひと言メッセージを確認
 ② 昼：その日の気分・エネルギーを 1 分で入力（任意でメモ）
 ③ すぐに：あなたの性格タイプと最近の調子を踏まえた提案が届く
@@ -31,7 +32,7 @@
 ## 4. ユーザーに見える画面
 | 画面 | 目的 | ひとこと説明 |
 |------|------|--------------|
-| オンボーディング | 性格タイプを把握 | 10 問に答えると 5 大特性のレーダーチャートが表示 |
+| オンボーディング | 性格タイプを把握 | 10 問に答えると 5 大特性のレーダーチャートが表示（初回のみ） |
 | ホーム | 今日の状態を更新 | 前回メッセージと「今日の調子」をチェックイン |
 | チェックインモーダル | 気分の入力 | 気分スライダー + エネルギーのボタン + メモ欄 |
 | 介入メッセージ | すぐにアドバイス | OpenAI が整形したタイトル＋本文＋CTA |
@@ -42,11 +43,18 @@
 ## 5. 裏側では何が起きている？
 ```mermaid
 flowchart LR
-  User -->|チェックイン| EdgeFn[Edge Function]
-  EdgeFn -->|気分 + TIPI + 直近平均| Prompt[テンプレ作成]
-  Prompt -->|Structured Output| OpenAI[OpenAI Responses]
-  OpenAI --> EdgeFn --> DB[(PostgreSQL)]
-  DB --> AppUI[アプリUI]
+  subgraph 初回オンボーディング
+    User -->|TIPI 回答| EdgeFnTipi[Edge Function (tipi-submit)]
+    EdgeFnTipi -->|スコア保存| DB[(PostgreSQL)]
+    DB -->|結果取得| AppUITipi[TIPI結果画面]
+  end
+  subgraph 日次フロー
+    User -->|チェックイン| EdgeFn[Edge Function (checkins)]
+    EdgeFn -->|気分 + TIPI + 直近平均| Prompt[テンプレ生成]
+    Prompt -->|Structured Output| OpenAI[OpenAI Responses]
+    OpenAI --> EdgeFn --> DB
+    DB --> AppUI[アプリUI]
+  end
 ```
 - バックエンドは Supabase（PostgreSQL + Edge Functions）で構築。
 - OpenAI Responses API にテンプレートを渡してもらったアドバイスを生成。
