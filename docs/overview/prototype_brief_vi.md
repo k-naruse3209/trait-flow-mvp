@@ -43,17 +43,17 @@ Tài liệu này dùng để giải thích đơn giản mục tiêu và trải n
 ## 5. Hậu trường hoạt động ra sao?
 ```mermaid
 flowchart LR
-  subgraph Onboarding lần đầu
-    User -->|Trả lời TIPI| EdgeFnTipi[Edge Function (tipi-submit)]
-    EdgeFnTipi -->|Lưu điểm| DB[(PostgreSQL)]
-    DB -->|Trả kết quả| AppUITipi[Màn hình kết quả TIPI]
+  subgraph "Onboarding lần đầu"
+    User -->|Trả lời TIPI| EdgeFnTipi["Edge Function (tipi-submit)"]
+    EdgeFnTipi -->|Lưu điểm| DB[("PostgreSQL")]
+    DB -->|Trả kết quả| AppUITipi["Màn hình kết quả TIPI"]
   end
-  subgraph Quy trình hằng ngày
-    User -->|Check-in| EdgeFn[Edge Function (checkins)]
-    EdgeFn -->|Mood + TIPI + trung bình gần đây| Prompt[Tạo prompt]
-    Prompt -->|Structured Output| OpenAI[OpenAI Responses]
+  subgraph "Quy trình hằng ngày"
+    User -->|Check-in| EdgeFn["Edge Function (checkins)"]
+    EdgeFn -->|Mood + TIPI + trung bình gần đây| Prompt["Tạo prompt"]
+    Prompt -->|Structured Output| OpenAI["OpenAI Responses"]
     OpenAI --> EdgeFn --> DB
-    DB --> AppUI[Giao diện ứng dụng]
+    DB --> AppUI["Giao diện ứng dụng"]
   end
 ```
 - Backend xây dựng bằng Supabase (PostgreSQL + Edge Functions).
