@@ -1,4 +1,4 @@
-Trait Flow – Thuyết minh chức năng (dễ hiểu)
+Trait Flow – Thuyết minh chức năng
 
 Mục tiêu
 Mỗi ngày chỉ cần ghi lại cảm xúc của mình trong chốc lát, bạn sẽ nhận được một “lời nhắc nhở ngắn cho hôm nay” phù hợp với nội dung đó. Việc duy trì thói quen này giúp bạn nhận ra sự thay đổi cảm xúc và tìm ra gợi ý cho hành động tiếp theo.
