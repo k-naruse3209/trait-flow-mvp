@@ -98,13 +98,13 @@ flowchart LR
 - `checkins`
   - `id`, `user_id`, `mood_score` (int), `energy_level` (text), `free_text` (text), `created_at`
 - `interventions`
-  - `id`, `user_id`, `checkin_id`, `template_type`, `message_payload` (JSON), `feedback_score` (int), `created_at`
+  - `id`, `user_id`, `checkin_id`, `template_type`, `message_payload` (JSON: `title`, `body`, `cta_text`, `prompt_trace`), `fallback` (bool), `feedback_score` (int), `created_at`
 
 ## 6. 外部サービス
 - **OpenAI Responses API**
   - モデル: `gpt-4.1-mini`（低コスト）を標準とし、不足時のみ `gpt-4.1` へ切替。
   - Structured Output: `title`（30 文字以内）、`body`（300 文字以内）、`cta_text`（40 文字以内）を JSON で要求。
-  - 失敗時: 既存テンプレート文章を返却し、`interventions.message_payload.fallback=true` を設定。
+  - 失敗時: 既存テンプレート文章を返却し、`interventions.fallback=true` を設定。
 - **オプション連携（Phase 2 以降）**
   - Slack Webhook / Email（SendGrid）でリマインダー送信。
   - 将来の Symanto 連携は別フェーズで仕様策定。
