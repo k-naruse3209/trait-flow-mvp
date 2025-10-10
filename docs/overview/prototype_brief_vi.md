@@ -29,14 +29,16 @@ Tài liệu này dùng để giải thích đơn giản mục tiêu và trải n
 
 ---
 
-## 4. Các màn hình người dùng thấy
-| Màn hình | Mục đích | Mô tả ngắn |
-|----------|----------|------------|
-| Onboarding | Hiểu kiểu tính cách | Trả lời 10 câu để xem biểu đồ 5 đặc tính chính (chỉ xuất hiện lần đầu) |
-| Trang chủ | Cập nhật trạng thái trong ngày | Xem thông điệp gần nhất và nút check-in “Hôm nay thế nào?” |
-| Cửa sổ Check-in | Nhập cảm xúc | Thanh trượt cảm xúc + nút năng lượng + ô ghi chú |
-| Thông điệp can thiệp | Nhận gợi ý ngay | OpenAI định dạng tiêu đề + nội dung + CTA |
-| Lịch sử | Tự xem lại | Danh sách check-in và thông điệp theo thời gian |
+## 4. Các màn hình chính của ứng dụng
+Tổng hợp vai trò của từng màn hình và những thành phần xuất hiện trên màn hình đó.
+
+| Tên màn hình | Dùng để làm gì? | Có những thành phần nào? |
+|---------------|---------------------|--------------------------|
+| Màn hình kết quả TIPI | Xem kết quả trắc nghiệm tính cách đã trả lời lúc bắt đầu (chỉ hiển thị lần đầu). | ● Biểu đồ thể hiện 5 nhóm tính cách mạnh/yếu<br>● Đoạn giải thích chi tiết kết quả<br>● Nút tiếp tục đến trang chủ |
+| Trang chủ | Cửa ngõ của ứng dụng: đọc thông điệp mới nhất và bắt đầu check-in. | ● Thẻ thông điệp mới nhất<br>● Nút “Hôm nay thế nào?”<br>● Số ngày liên tục sử dụng hoặc số lần check-in |
+| Màn hình check-in | Ghi lại cảm xúc và năng lượng hiện tại trong vòng 1 phút. | ● Thanh trượt cảm xúc (1–5)<br>● Các nút mức năng lượng (Cao / Trung bình / Thấp)<br>● Ô ghi chú tự do (không bắt buộc)<br>● Nút gửi |
+| Thẻ thông điệp | Đọc thông điệp do AI soạn dựa trên dữ liệu bạn vừa nhập. | ● Tiêu đề và nội dung thông điệp<br>● Gợi ý hành động (CTA) liên quan<br>● Đánh giá mức hữu ích bằng sao (1–5) |
+| Trang lịch sử | Xem lại các lần check-in và thông điệp trước đây. | ● Danh sách các lần check-in<br>● Danh sách thẻ thông điệp đã nhận |
 
 ---
 
@@ -62,15 +64,15 @@ flowchart LR
 
 ---
 
-## 6. Lộ trình 8 tuần (phiên bản rút gọn)
-| Tuần | Công việc chính | Kết quả |
-|------|-----------------|---------|
-| Week 1 | Dựng môi trường, phác UI TIPI | Bản demo giao diện đầu tiên |
-| Week 2 | Hoàn thiện TIPI & trang kết quả | Xong Onboarding |
-| Week 3 | Check-in + tạo thông điệp can thiệp | Nhận được gợi ý ngay sau check-in |
-| Week 4 | Trang lịch sử, đánh giá, số liệu cơ bản | Hoàn thiện vòng trải nghiệm |
-| Weeks 5-6 | Kiểm thử nội bộ, cải thiện | Danh sách bug & cải tiến |
-| Weeks 7-8 | Chạy pilot | Thu thập phản hồi người dùng |
+## 6. Ví dụ về hành trình một ngày của người dùng
+Ví dụ một người dùng tương tác với Trait Flow trong suốt một ngày.
+
+| Thời điểm 🕒 | Hành động của người dùng 👋 | Ứng dụng phản hồi như thế nào? ✨ |
+|--------------|------------------------------------------|------------------------------------------------|
+| Buổi sáng ☀️ (khoảng 8:00) | Mở ứng dụng, đọc lại thông điệp của ngày hôm trước. | Trang chủ hiển thị thẻ thông điệp mới nhất. |
+| Buổi trưa 🕛 (khoảng 12:30) | Nhấn “Hôm nay thế nào?”, nhập cảm xúc, năng lượng và ghi chú rồi gửi. | 1. Lưu an toàn bản ghi mới.<br>2. AI tạo thông điệp phù hợp với bạn.<br>3. Hiển thị ngay thẻ thông điệp mới. |
+| Buổi tối 🌙 (khoảng 21:00) | Đánh giá thông điệp lúc trưa có hữu ích không bằng sao (1–5). | Lưu điểm đánh giá để cải thiện thông điệp lần sau. |
+| Cuối tuần 🗓️ | Mở trang lịch sử và xem “tuần này mình cảm thấy thế nào?”. | Hiển thị danh sách các bản ghi và thông điệp đã lưu. |
 
 ---
 
