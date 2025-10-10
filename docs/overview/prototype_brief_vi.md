@@ -1,3 +1,29 @@
+Trait Flow – Thuyết minh chức năng (dễ hiểu)
+
+Mục tiêu
+Mỗi ngày chỉ cần ghi lại cảm xúc của mình trong chốc lát, bạn sẽ nhận được một “lời nhắc nhở ngắn cho hôm nay” phù hợp với nội dung đó. Việc duy trì thói quen này giúp bạn nhận ra sự thay đổi cảm xúc và tìm ra gợi ý cho hành động tiếp theo.
+
+Luồng bắt đầu sử dụng (onboarding lần đầu)
+
+1. Đăng ký bằng email, sau đó trả lời 10 câu hỏi tính cách (TIPI).
+2. Ứng dụng tính toán và hiển thị biểu đồ thể hiện mức độ của 5 nhóm tính cách (ví dụ: hướng ngoại, tận tâm, dễ hòa hợp...).
+3. Kết quả này được lưu làm “dữ liệu ban đầu” và được dùng cho việc tạo thông điệp mỗi ngày.
+
+Quy trình cơ bản hằng ngày
+
+1. Tại trang chủ, chạm vào thẻ “Hôm nay thế nào?”
+2. Nhập cảm xúc (thanh trượt 1–5), mức năng lượng (thấp/trung bình/cao) và ghi chú ngắn (tuỳ chọn).
+3. Gửi đi là ứng dụng sẽ hiển thị ngay “thẻ thông điệp hôm nay”.
+4. Buổi tối có thể đánh giá thẻ đó hữu ích mức nào bằng sao 1–5.
+5. Mọi bản ghi đều có thể xem lại bất cứ lúc nào trong trang lịch sử.
+
+Cách hệ thống quyết định thông điệp
+
+- Hệ thống đọc kết quả TIPI ban đầu cùng với điểm cảm xúc của 3 lần gần nhất.
+- Nếu cảm xúc cao, sẽ chọn “thẻ gợi ý hành động”; nếu thấp, chọn “thẻ động viên nhẹ nhàng”; nếu trung bình, chọn “thẻ gợi mở phản tư”.
+- Mẫu thẻ đã chọn và bản ghi trong ngày được gửi tới AI để viết thành lời ngắn gọn.
+- Nếu AI không trả về kết quả hợp lệ, hệ thống dùng thông điệp mẫu an toàn (thẻ sẽ hiển thị “template”).
+
 # Trait Flow Prototype – Giới thiệu nhanh (Tiếng Việt)
 
 Tài liệu này dùng để giải thích đơn giản mục tiêu và trải nghiệm của bản prototype cho những người không trực tiếp tham gia phát triển cũng như người dùng thử nghiệm.
