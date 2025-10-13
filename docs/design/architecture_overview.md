@@ -1,46 +1,76 @@
 # アーキテクチャ概要
 
 ## 1. コンポーネント構成
-- **Web クライアント (Next.js / React)**  
-  - ページ: オンボーディング、ホーム、チェックイン、履歴、設定。  
-  - 認証: Supabase Auth（メールリンクまたは OTP）。  
+- **Web クライアント (Next.js / React)**
+  - ページ: オンボーディング、ホーム、チェックイン、履歴、設定。
+  - 認証: Supabase Auth（メールリンクまたは OTP）。
   - データ取得: Supabase JS SDK を通じた REST/Edge Functions 呼び出し。
 - **Supabase バックエンド**
   - **PostgreSQL**: `baseline_traits` / `checkins` / `interventions` / `users` テーブルを管理。Row Level Security (RLS) でユーザー単位にアクセス制御。
   - **Edge Functions (Deno)**: 業務ロジックを実装。TIPI 保存、チェックイン登録、介入生成、フィードバック更新などを担当。
   - **Storage**（オプション）: 将来的な添付ファイルやエクスポートに備えた領域。現時点では未使用。
-- **OpenAI Responses API**
-  - モデル: `gpt-4.1-mini`  
-  - Structured Output Schema に従い、介入メッセージを生成。フォールバック時はテンプレートを返す。
+- **OpenAI API**
+  - モデル: `gpt-4o-mini`（または `gpt-4o`）
+  - エンドポイント: `/v1/chat/completions`
+  - Structured Output（JSON mode）に従い、介入メッセージを生成。フォールバック時はテンプレートを返す。
+- **Upstash Redis**（任意）
+  - レート制限の実装に使用
+  - 設定: `UPSTASH_REDIS_URL` と `UPSTASH_REDIS_TOKEN` を環境変数で指定
 - **Monitoring / Analytics**
-  - Supabase Logs: Edge Functions の成功/失敗、レスポンス時間を確認。  
-  - Slack Webhook（任意）: 重大エラー通知。  
+  - Supabase Logs: Edge Functions の成功/失敗、レスポンス時間を確認。
+  - Slack Webhook（任意）: 重大エラー通知。
   - OpenAI Usage Dashboard: API 消費量を日次で確認。
 
 ## 2. High-Level データフロー
+
 ```mermaid
 flowchart TD
-  subgraph Client
+  subgraph Client["Web Client (Next.js)"]
     Onboard[Onboarding UI]
     Home[Home & Check-in UI]
     History[History UI]
   end
-  subgraph Supabase
+  subgraph Supabase["Supabase"]
     Auth[Supabase Auth]
     Edge[Edge Functions]
-    DB[(PostgreSQL)]
+    DB[(PostgreSQL + RLS)]
   end
-  OpenAI[OpenAI Responses API]
+  subgraph External["External Services"]
+    OpenAI[OpenAI API]
+    Redis[Upstash Redis<br/>レート制限]
+    Slack[Slack Webhook<br/>アラート]
+  end
 
   Onboard --> Auth
   Onboard --> Edge
   Edge --> DB
   Home --> Edge
+  Edge --> Redis
   Edge --> OpenAI
   OpenAI --> Edge
+  Edge --> Slack
   Edge --> Home
   History --> Edge
   Edge --> History
+```
+
+### エラー伝播フロー
+
+```mermaid
+flowchart LR
+  Client[Client]
+  Edge[Edge Functions]
+  OpenAI[OpenAI API]
+  DB[(Database)]
+
+  Client -->|Request| Edge
+  Edge -->|Query| DB
+  DB -.->|DB Error| Edge
+  Edge -->|Generate| OpenAI
+  OpenAI -.->|API Error| Edge
+  Edge -->|Fallback<br/>Template| Edge
+  Edge -->|Error Response<br/>+ Code| Client
+  Client -->|Display Error<br/>Toast| User[User]
 ```
 
 ## 3. ユースケース別シーケンス
@@ -100,10 +130,27 @@ sequenceDiagram
 ```
 
 ## 4. セキュリティと権限
+
+詳細は `docs/security/security_implementation.md` を参照。
+
+### 4.1 認証・認可
 - Supabase Auth が発行する JWT をクライアントが保持し、Edge Functions は `Authorization: Bearer` トークンを検証。
 - 各テーブルに RLS を設定し、`auth.uid()` が `user_id` と一致する行のみ `SELECT/INSERT/UPDATE` を許可。
 - Edge Functions はサービスロール鍵で DB にアクセスし、リクエストペイロードと `user_id` を明示的にバリデーション。
+
+### 4.2 シークレット管理
 - OpenAI API キーは Edge Functions の環境変数 (`OPENAI_API_KEY`) として保持し、クライアントへ露出しない。
+- Supabase Service Role Key は環境変数で管理し、クライアント側では絶対に使用しない。
+- API キーは3ヶ月ごとにローテーション（推奨）。
+
+### 4.3 レート制限
+- Upstash Redis を使用してレート制限を実装（任意）。
+- チェックイン: 5分間に3回まで
+- 認証: 1時間に10回まで（IP単位）
+
+### 4.4 エラーハンドリング
+- 標準化されたエラーコード体系を使用（詳細: `docs/design/error_codes.md`）。
+- すべてのエラーは JSON 形式で返却：`{ error: { code, message, details } }`
 
 ## 5. 環境構成
 - **ローカル開発**
