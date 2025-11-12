@@ -1,0 +1,68 @@
+{
+  "name": "TraitFlow Notify",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "traitflow",
+        "responseMode": "lastNode",
+        "options": {
+          "responseCode": 200,
+          "responseData": "lastNode",
+          "responseContentType": "application/json"
+        }
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [300, 300],
+      "webhookId": "traitflow-webhook"
+    },
+    {
+      "parameters": {
+        "channel": "#traitflow-alerts",
+        "text": "User {{$json.user_id}} asked: {{$json.query}}\nAnswer: {{$json.answer}}\nLatency: {{$json.stats.latency_ms}} ms"
+      },
+      "id": "Slack",
+      "name": "Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 1,
+      "position": [600, 200],
+      "credentials": {
+        "slackApi": "Slack Bot"
+      }
+    },
+    {
+      "parameters": {
+        "sheetId": "YOUR_SHEET_ID",
+        "range": "Responses!A:C",
+        "options": {},
+        "values": [
+          [
+            "={{$json.user_id}}",
+            "={{$json.query}}",
+            "={{$json.answer}}"
+          ]
+        ]
+      },
+      "id": "Sheets",
+      "name": "Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 3,
+      "position": [600, 400],
+      "credentials": {
+        "googleApi": "Google Sheets API"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          { "node": "Slack", "type": "main", "index": 0 },
+          { "node": "Google Sheets", "type": "main", "index": 0 }
+        ]
+      ]
+    }
+  }
+}

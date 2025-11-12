@@ -54,6 +54,50 @@ cd trait-flow-mvp
 
 **凡例:** ⭐ = 必読 | 🆕 = 新規追加
 
+### ドキュメント クイックリンク
+
+- プロトタイプ概要（かんたん説明）: `docs/overview/prototype_brief_ja.md`
+- Tổng quan prototype (Tiếng Việt): `docs/overview/prototype_brief_vi.md`
+- プロトタイプ仕様書（簡易版）: `docs/prototype_spec_ja.md`
+- アーキテクチャ概要: `docs/design/architecture_overview.md`
+- データモデル: `docs/design/data_model.md`
+- API コントラクト: `docs/design/api_contract.md`
+- Edge Functions 設計: `docs/design/backend_functions.md`
+- フロントエンド設計: `docs/design/frontend_flows.md`
+- プロンプト設計: `docs/design/prompt_templates.md`
+- 実装ロードマップ: `docs/design/project_plan.md`
+- プレゼン資料素案（日本語）: `docs/slides/prototype_pitch_ja.md`
+- Presentation Outline (English): `docs/slides/prototype_pitch_en.md`
+- Bài thuyết trình (Tiếng Việt): `docs/slides/prototype_pitch_vi.md`
+
+## Backend (orchestrator)
+
+- `backend/orchestrator` には FastAPI サービスを追加。LangGraph / LlamaIndex / pgvector / Cohere Rerank / OpenAI Responses を利用する構成です。
+- `.env.example` を参照して環境変数を設定し、Cloud Run などにデプロイします。
+
+### 使い方（ミニ検証）
+
+```bash
+# 1) DB テーブル作成
+psql "$PG_DSN" -f backend/orchestrator/db/schema.sql
+
+# 2) ローカル起動
+cd backend/orchestrator
+uvicorn app.main:app --reload
+
+# 3) メモリ投入
+curl -XPOST localhost:8000/api/memory/update \
+ -H 'content-type: application/json' \
+ -d '{"user_id":"u_demo","text":"私は短く結論から答えるのが好き","kind":"note"}'
+
+# 4) 応答
+curl -XPOST localhost:8000/api/respond \
+ -H 'content-type: application/json' \
+ -d '{"user_id":"u_demo","query":"このプロジェクトの次の一手は？"}'
+```
+
+フロントエンド（`ui/.env.local`）では orchestrator のエンドポイントを環境変数で指定し、`fetch('/api/...')` を差し替えてください。
+
 ## 🏗️ 技術スタック
 
 - **フロントエンド**: Next.js 14, React 18, TypeScript, Tailwind CSS
