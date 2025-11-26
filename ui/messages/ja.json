@@ -1,0 +1,701 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "submit": "送信",
+    "close": "閉じる"
+  },
+  "navigation": {
+    "home": "ホーム",
+    "dashboard": "ダッシュボード",
+    "assessment": "性格診断",
+    "results": "結果",
+    "messages": "メッセージ",
+    "history": "履歴",
+    "settings": "設定",
+    "signIn": "ログイン",
+    "signUp": "新規登録",
+    "signOut": "ログアウト"
+  },
+  "auth": {
+    "login": {
+      "title": "アカウントにログイン",
+      "description": "メールアドレスとパスワードを入力してアカウントにアクセスしてください",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "emailPlaceholder": "example@email.com",
+      "passwordPlaceholder": "パスワードを入力してください",
+      "signInButton": "ログイン",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "noAccount": "アカウントをお持ちでないですか？",
+      "signUpLink": "こちらから新規登録",
+      "otpLogin": "OTPでログイン",
+      "passwordLogin": "パスワード"
+    },
+    "otp": {
+      "title": "OTPでログイン",
+      "enterOtpTitle": "OTPコードを入力",
+      "description": "OTPコードを受信するためにメールアドレスを入力してください",
+      "otpSentDescription": "OTPコードが{email}に送信されました",
+      "emailLabel": "メールアドレス",
+      "otpLabel": "OTPコード（6桁）",
+      "sendOtp": "OTP送信",
+      "verifyOtp": "OTP認証",
+      "resendOtp": "OTP再送信",
+      "resendCountdown": "{seconds}秒後に再送信",
+      "backToEmail": "← メール入力に戻る",
+      "autoVerifying": "自動認証中...",
+      "sending": "送信中...",
+      "verifying": "認証中...",
+      "resending": "再送信中...",
+      "errors": {
+        "invalidEmail": "無効なメール形式です",
+        "invalidOtp": "6桁のOTPコードを入力してください",
+        "otpExpired": "OTPコードが正しくないか期限切れです。新しいコードをリクエストしてください",
+        "networkError": "ネットワークエラーです。インターネット接続を確認して再試行してください",
+        "tooManyRequests": "リクエストが多すぎます。数分後に再試行してください",
+        "signupDisabled": "新規登録機能が無効になっています。管理者にお問い合わせください"
+      }
+    },
+    "signUp": {
+      "title": "新規登録",
+      "description": "新しいアカウントを作成",
+      "email": "メールアドレス",
+      "password": "パスワード",
+      "repeatPassword": "パスワード再入力",
+      "emailPlaceholder": "m@example.com",
+      "signUpButton": "新規登録",
+      "creatingAccount": "アカウント作成中...",
+      "haveAccount": "既にアカウントをお持ちですか？",
+      "loginLink": "ログイン",
+      "errors": {
+        "passwordMismatch": "パスワードが一致しません",
+        "generalError": "エラーが発生しました"
+      }
+    },
+    "forgotPassword": {
+      "title": "パスワードリセット",
+      "description": "メールアドレスを入力すると、パスワードリセット用のリンクをお送りします",
+      "email": "メールアドレス",
+      "emailPlaceholder": "m@example.com",
+      "sendButton": "リセットメール送信",
+      "sending": "送信中...",
+      "haveAccount": "既にアカウントをお持ちですか？",
+      "loginLink": "ログイン",
+      "success": {
+        "title": "メールを確認してください",
+        "description": "パスワードリセット手順を送信しました",
+        "message": "メールアドレスとパスワードで登録されている場合、パスワードリセットメールが届きます。"
+      },
+      "errors": {
+        "generalError": "エラーが発生しました"
+      }
+    }
+  },
+  "assessment": {
+    "title": "性格診断",
+    "subtitle": "Ten-Item Personality Inventory (TIPI)",
+    "intro": {
+      "purpose": "診断の目的",
+      "description": "TIPI性格診断は、あなたの5つの主要な性格特性を特定するのに役立ちます：",
+      "traits": {
+        "extraversion": "外向性：あなたの外向性と活力のレベル",
+        "agreeableness": "協調性：あなたの協力と信頼のレベル",
+        "conscientiousness": "誠実性：あなたの責任感と規律のレベル",
+        "neuroticism": "神経症的傾向：あなたの不安とストレスのレベル",
+        "openness": "開放性：あなたの新しい経験への開放性のレベル"
+      },
+      "instructions": {
+        "title": "手順：",
+        "items": [
+          "• 診断は10の質問で構成されています",
+          "• 各質問は1（強く反対）から7（強く同意）で評価されます",
+          "• できるだけ正直に答えてください",
+          "• 完了まで約2〜3分かかります"
+        ]
+      },
+      "startButton": "診断を開始"
+    },
+    "questions": {
+      "progress": "質問 {current} / {total}",
+      "prompt": "私は次のような人だと思います...",
+      "scale": {
+        "1": "強く反対",
+        "2": "反対",
+        "3": "やや反対",
+        "4": "どちらでもない",
+        "5": "やや同意",
+        "6": "同意",
+        "7": "強く同意"
+      },
+      "instruction": "この文にどの程度同意しますか？",
+      "completeButton": "診断完了",
+      "answered": "回答済み",
+      "unanswered": "未回答",
+      "current": "現在の質問"
+    },
+    "completion": {
+      "title": "完了！",
+      "message": "性格診断を完了していただき、ありがとうございます。",
+      "redirect": "詳細な分析を表示するため、結果ページにリダイレクトされます..."
+    },
+    "error": {
+      "title": "エラーが発生しました",
+      "message": "診断結果を保存できませんでした",
+      "retryButton": "再試行"
+    },
+    "submitting": {
+      "title": "結果を処理中...",
+      "message": "しばらくお待ちください"
+    }
+  },
+  "dashboard": {
+    "title": "ダッシュボード",
+    "subtitle": "お帰りなさい！気分とエネルギーレベルを記録しましょう。",
+    "loading": "読み込み中...",
+    "checkin": {
+      "title": "日次チェックイン",
+      "description": "今日の気分はいかがですか？気分とエネルギーレベルを共有してください。",
+      "completed": "日次チェックイン完了",
+      "completedAt": "今日のチェックイン時刻",
+      "moodScore": "気分スコア",
+      "energyLevel": "エネルギーレベル",
+      "additionalNotes": "追加メモ（任意）",
+      "notesPlaceholder": "今日の気分はいかがですか？何か共有したい思いはありますか...",
+      "notesHelper": "心に浮かんだことを何でも共有してください（任意）",
+      "notesHelperMobile": "任意のメモ",
+      "submitButton": "チェックイン送信",
+      "submitting": "送信中...",
+      "completionMessage": "✅ 日次チェックインが完了しました。また明日お会いしましょう！",
+      "yourNote": "あなたのメモ：",
+      "loadingStatus": "チェックイン状況を読み込み中...",
+      "tryAgain": "再試行",
+      "mood": {
+        "veryLow": "とても低い",
+        "low": "低い",
+        "neutral": "普通",
+        "good": "良い",
+        "excellent": "素晴らしい"
+      },
+      "energy": {
+        "low": "低い",
+        "lowDescription": "疲れている、消耗している",
+        "medium": "普通",
+        "mediumDescription": "バランスが取れている",
+        "high": "高い",
+        "highDescription": "エネルギッシュ、活発",
+        "lowEnergy": "低エネルギー",
+        "mediumEnergy": "普通のエネルギー",
+        "highEnergy": "高エネルギー"
+      },
+      "errors": {
+        "moodScore": "気分スコアは1から5の間である必要があります",
+        "energyLevel": "エネルギーレベルを選択してください",
+        "freeText": "自由記述は280文字以下である必要があります",
+        "loginRequired": "チェックインを表示するにはログインしてください",
+        "loadFailed": "チェックイン状況の読み込みに失敗しました",
+        "submitFailed": "チェックインの送信に失敗しました"
+      },
+      "feedbackGate": {
+        "title": "前回のコーチングを評価して次のチェックインを解放",
+        "subtitle": "フィードバック待ちのメッセージがあります。",
+        "placeholderTitle": "最新のコーチングメッセージ",
+        "copy": "まずは即時テンプレートで労いを届けています。1〜5の★で評価すると、AIがさらに賢くなります。",
+        "rateLabel": "役に立ちましたか？",
+        "reward": "評価すると本日のチェックインが解放され、+5ポイントを付与します。",
+        "locked": "前回メッセージの評価が完了するまで新しいチェックインはロックされます。",
+        "viewMessages": "メッセージ一覧を開く",
+        "error": "フィードバックの保存に失敗しました。もう一度お試しください。"
+      }
+    },
+    "analytics": {
+      "title": "気分分析",
+      "description": "あなたの気分とエネルギーパターンの洞察",
+      "basedOn": "過去30日間の{count}回のチェックインに基づく",
+      "calculating": "分析を計算中...",
+      "noData": "データがありません",
+      "noDataDescription": "気分とエネルギーの分析を表示するために、いくつかのチェックインを完了してください。",
+      "averageMood": "平均気分",
+      "moodTrend": "気分の傾向",
+      "checkinStreak": "チェックイン連続記録",
+      "energyDistribution": "エネルギー分布",
+      "totalCheckins": "総チェックイン数",
+      "day": "日",
+      "days": "日",
+      "trends": {
+        "improving": "改善中",
+        "declining": "低下中",
+        "stable": "安定"
+      },
+      "energy": {
+        "low": "🔋 低い",
+        "mid": "🔋🔋 普通",
+        "high": "🔋🔋🔋 高い"
+      }
+    },
+    "interventions": {
+      "title": "最新のコーチングメッセージ",
+      "description": "チェックインに基づく個人向けガイダンス",
+      "loading": "最新のメッセージを読み込み中...",
+      "noMessage": "コーチングメッセージがありません",
+      "noMessageDescription": "気分パターンに基づく個人向けコーチングメッセージを受信するために、いくつかのチェックインを完了してください。",
+      "refresh": "更新"
+    },
+    "history": {
+      "title": "チェックイン履歴",
+      "description": "最近の気分とエネルギーレベルを追跡",
+      "showing": "{total}件のチェックインのうち{start}-{end}件を表示",
+      "loading": "チェックイン履歴を読み込み中...",
+      "noHistory": "チェックインがありません",
+      "noHistoryDescription": "最初の日次チェックインを送信して、気分とエネルギーレベルの追跡を開始してください。",
+      "today": "今日",
+      "yesterday": "昨日",
+      "daysAgo": "{days}日前",
+      "mood": "気分",
+      "energy": "エネルギー",
+      "energyLevel": "エネルギーレベル",
+      "pagination": {
+        "previous": "前へ",
+        "next": "次へ",
+        "page": "{total}ページ中{current}ページ"
+      }
+    },
+    "errors": {
+      "loadFailed": "データの読み込みに失敗しました",
+      "tryAgain": "再試行"
+    }
+  },
+  "results": {
+    "title": "診断結果",
+    "subtitle": "ビッグファイブモデルに基づくあなたの性格診断結果です。",
+    "yourResults": "あなたの診断結果",
+    "errorTitle": "診断結果",
+    "errorSubtitle": "結果の読み込み中に問題が発生しました。",
+    "noResultsTitle": "診断結果",
+    "noResultsSubtitle": "科学的に検証された診断であなたの性格の洞察を発見してください。",
+    "overview": {
+      "title": "診断概要",
+      "completedOn": "完了日",
+      "instrument": "診断ツール",
+      "returnToDashboard": "ダッシュボードに戻る",
+      "retakeAssessment": "診断を再実行"
+    },
+    "chart": {
+      "title": "あなたの性格プロフィール",
+      "tScoreInfo": "Tスコア：平均=50、標準偏差=10の標準化スコア。40-60が平均的な範囲です。",
+      "normalizedInfo": "0-1スケール：0.5が各特性の平均レベルを表す正規化スコア。",
+      "understandingScores": "スコアの理解",
+      "traitDescriptions": {
+        "extraversion": "社会的エネルギー、積極性、ポジティブな感情",
+        "agreeableness": "協力、信頼、共感",
+        "conscientiousness": "組織化、規律、目標指向の行動",
+        "neuroticism": "感情の不安定性、不安、ネガティブな感情",
+        "openness": "創造性、好奇心、新しい経験への開放性"
+      }
+    },
+    "scores": {
+      "title": "スコア要約",
+      "normalized": "正規化スコア（0-1スケール）",
+      "tScores": "Tスコア（0-100スケール）"
+    },
+    "traits": {
+      "extraversion": "外向性",
+      "agreeableness": "協調性",
+      "conscientiousness": "誠実性",
+      "neuroticism": "神経症的傾向",
+      "openness": "開放性"
+    },
+    "noResults": {
+      "title": "診断結果がありません",
+      "subtitle": "科学的に検証された診断であなたの性格の洞察を発見してください。",
+      "mainTitle": "診断結果がありません",
+      "mainDescription": "最初の性格診断を受けて、あなた自身についての詳細な洞察を解き放ちましょう",
+      "description": "私たちの性格診断は、科学的に検証されたビッグファイブモデルを使用して、あなたの独特な特性、行動パターン、そして周囲の世界との関わり方を理解するのに役立ちます。",
+      "takeAssessment": "今すぐ診断を受ける",
+      "quickInfo": "わずか2〜3分 • 完全無料 • 即座に結果表示",
+      "discover": {
+        "title": "発見できること",
+        "subtitle": "性格診断は5つの主要領域についての洞察を提供します",
+        "extraversion": {
+          "title": "外向性",
+          "description": "エネルギーの獲得方法と社会的交流"
+        },
+        "agreeableness": {
+          "title": "協調性",
+          "description": "協力的で信頼できるアプローチ"
+        },
+        "conscientiousness": {
+          "title": "誠実性",
+          "description": "組織化と目標指向の行動"
+        },
+        "neuroticism": {
+          "title": "神経症的傾向",
+          "description": "感情の安定性とストレス反応"
+        },
+        "openness": {
+          "title": "開放性",
+          "description": "好奇心と新しい経験への開放性"
+        },
+        "analysis": {
+          "title": "詳細分析",
+          "description": "視覚的チャートと個人向け解釈"
+        }
+      },
+      "howItWorks": {
+        "title": "仕組み",
+        "subtitle": "シンプル、高速、科学的に検証済み",
+        "step1": {
+          "title": "10の質問に答える",
+          "description": "シンプルな性格に関する文への同意度を評価"
+        },
+        "step2": {
+          "title": "スコアを取得",
+          "description": "5つの性格次元すべてで詳細なスコアを受け取る"
+        },
+        "step3": {
+          "title": "洞察を探る",
+          "description": "結果が日常生活にとって何を意味するかを理解"
+        }
+      },
+      "finalCta": "性格診断を開始",
+      "joinUsers": "性格の洞察を発見した何千人ものユーザーに参加しましょう"
+    },
+    "error": {
+      "title": "結果を読み込めません",
+      "subtitle": "診断結果の取得中に問題が発生しました",
+      "errorLabel": "エラー",
+      "description": "これは一時的なネットワークの問題またはサーバーの問題が原因である可能性があります。再試行するか、問題が続く場合はサポートにお問い合わせください。",
+      "tryAgain": "再試行",
+      "returnToDashboard": "ダッシュボードに戻る",
+      "retakeAssessment": "診断を再実行",
+      "troubleshooting": {
+        "title": "問題が続く場合は、以下をお試しください：",
+        "refresh": "ページを更新",
+        "connection": "インターネット接続を確認",
+        "cache": "ブラウザのキャッシュをクリア",
+        "wait": "数分後に再試行"
+      }
+    },
+    "interpretation": {
+      "title": "詳細な性格分析",
+      "subtitle": "あなたのビッグファイブスコアが、行動傾向、好み、そして周囲の世界との典型的な関わり方について何を明らかにするかを探ってください。",
+      "aboutModel": {
+        "title": "ビッグファイブモデルについて",
+        "description": "ビッグファイブ性格モデルは、性格を理解するための最も科学的に検証されたフレームワークの一つです。人々が心理学的に互いに異なる最も重要な方法を捉える5つの広範な次元を測定します。",
+        "note": "性格特性は連続体上に存在し、「良い」または「悪い」スコアはないことを覚えておいてください。各特性には強みと課題があり、最良の結果は多くの場合、あなたの自然な傾向を理解し活用することから生まれます。"
+      },
+      "whatThisMeans": "これが意味すること：",
+      "yourTendency": "あなたの傾向：",
+      "higher": "高い",
+      "lower": "低い",
+      "levels": {
+        "veryHigh": "非常に高い - この特性はあなたの性格で非常に顕著です",
+        "high": "高い - この特性はあなたの行動でかなり目立ちます",
+        "moderate": "普通 - この特性の平均的なレベルを示しています",
+        "low": "低い - この特性はあなたの性格であまり顕著ではありません",
+        "veryLow": "非常に低い - この特性はあなたの行動でめったに表現されません",
+        "neuroticismVeryHigh": "非常に高い - 頻繁な感情の起伏を経験する可能性があります",
+        "neuroticismHigh": "高い - 状況により感情的に反応する傾向があります",
+        "neuroticismModerate": "普通 - 平均的な感情の安定性があります",
+        "neuroticismLow": "低い - 感情的に安定している傾向があります",
+        "neuroticismVeryLow": "非常に低い - 例外的に冷静で感情的に回復力があります"
+      },
+      "traitDescriptions": {
+        "extraversion": {
+          "name": "外向性",
+          "description": "社会的交流や外部活動を含む、外の世界からの刺激を求める傾向を測定します。",
+          "high": "あなたは外向的で、エネルギッシュで、積極的である傾向があります。社会的状況を楽しみ、興奮を求め、注目の中心になることを快適に感じます。",
+          "low": "あなたはより控えめで、静かで、内省的である傾向があります。小さなグループや一人での活動を好み、エネルギーを回復するために一人の時間が必要かもしれません。",
+          "moderate": "あなたは適度なレベルの外向性を示します。状況に応じて外向的と内向的の両方の行動を示すかもしれません。"
+        },
+        "agreeableness": {
+          "name": "協調性",
+          "description": "他者との交流において協力的で、信頼でき、思いやりがある傾向を反映します。",
+          "high": "あなたは思いやりがあり、信頼でき、親切である傾向があります。人間関係の調和を重視し、人間の本質について一般的に楽観的です。",
+          "low": "あなたはより懐疑的で、競争的で、率直である傾向があります。他者に挑戦することを厭わず、自分の利益を優先するかもしれません。",
+          "moderate": "あなたは適度なレベルの協調性を示します。状況に応じて高い協調性と低い協調性の両方の行動を示すかもしれません。"
+        },
+        "conscientiousness": {
+          "name": "誠実性",
+          "description": "タスクやコミットメントへのアプローチにおいて、組織的で、責任感があり、目標指向である傾向を測定します。",
+          "high": "あなたはよく組織化され、規律があり、信頼できる傾向があります。事前に計画を立て、詳細に注意を払い、コミットメントを守ります。",
+          "low": "あなたはより自発的で、柔軟で、リラックスしている傾向があります。厳格な計画に従うよりも、状況に応じて適応することを好むかもしれません。",
+          "moderate": "あなたは適度なレベルの誠実性を示します。状況に応じて高い誠実性と低い誠実性の両方の行動を示すかもしれません。"
+        },
+        "neuroticism": {
+          "name": "神経症的傾向",
+          "description": "否定的な感情を経験する傾向とプレッシャー下での感情の安定性を反映します。",
+          "high": "あなたはストレスにより敏感で、不安、心配、または気分の変動を経験しやすいかもしれません。困難な状況により強く反応するかもしれません。",
+          "low": "あなたは感情的に安定し、冷静で、回復力がある傾向があります。プレッシャー下でも冷静を保ち、挫折から素早く立ち直ることができます。",
+          "moderate": "あなたは適度なレベルの神経症的傾向を示します。状況に応じて高い神経症的傾向と低い神経症的傾向の両方の行動を示すかもしれません。"
+        },
+        "openness": {
+          "name": "開放性",
+          "description": "好奇心、創造性、新しいアイデア、経験、思考方法を探求する意欲を測定します。",
+          "high": "あなたは想像力豊かで、好奇心旺盛で、新しい経験に開放的である傾向があります。アイデアを探求することを楽しみ、芸術と美を評価し、知的追求を重視します。",
+          "low": "あなたは馴染みのある経験と従来のアプローチを好む傾向があります。より実用的で、抽象的な概念よりも具体的な概念に焦点を当てるかもしれません。",
+          "moderate": "あなたは適度なレベルの開放性を示します。状況に応じて高い開放性と低い開放性の両方の行動を示すかもしれません。"
+        }
+      },
+      "summary": {
+        "title": "あなたの独特なプロフィールを理解する",
+        "description": "あなたの性格プロフィールはあなた独自のものです。これらのスコアはあなたの典型的な思考、感情、行動のパターンについての洞察を提供しますが、以下のことを覚えておいてください：",
+        "points": {
+          "0": "性格は異なる文脈で異なって表現される可能性があります",
+          "1": "必要に応じて行動を適応させる能力があります",
+          "2": "すべての性格タイプには強みと成長領域があります",
+          "3": "あなたの傾向を理解することで、人間関係、キャリア、個人的成長についてより良い決定を下すことができます"
+        },
+        "conclusion": "これらの洞察が日常生活、人間関係、目標にどのように適用されるかを考えてみてください。性格の認識は、個人的成長とより良い自己理解のための強力なツールです。"
+      }
+    }
+  },
+  "gettingStarted": {
+    "title": "はじめに",
+    "description": "以下の手順に従って、すべての機能を解放し、AIコーチングの旅を始めましょう",
+    "step1": {
+      "title": "個人向け機能を解放するために性格診断を完了してください",
+      "description": "あなたの性格に基づく個人向けAIコーチングを受けるためにTIPI診断を受けてください。"
+    },
+    "step2": {
+      "title": "AIコーチングを受けるために日次チェックインを開始してください",
+      "description": "日々の経験を共有し、個人向けコーチングの洞察を受け取ってください。"
+    },
+    "step3": {
+      "title": "コーチングメッセージをレビューして評価してください",
+      "description": "受け取ったメッセージにフィードバックを提供することで、AIコーチの改善に協力してください。"
+    }
+  },
+  "messages": {
+    "title": "あなたのコーチングメッセージ",
+    "subtitle": "個人向けAIコーチングメッセージをレビューし、将来の推奨事項を改善するためのフィードバックを提供してください。",
+    "stats": {
+      "totalMessages": "総メッセージ数",
+      "withFeedback": "フィードバック付き",
+      "aiGenerated": "AI生成",
+      "avgRating": "平均評価"
+    },
+    "templateTypes": {
+      "compassion": "セルフケア",
+      "reflection": "振り返り",
+      "action": "アクション",
+      "coaching": "コーチング"
+    },
+    "badges": {
+      "ai": "AI",
+      "template": "テンプレート",
+      "analysisPending": "詳細分析中",
+      "analysisReady": "詳細分析完了"
+    },
+    "feedback": {
+      "rateMessage": "このメッセージを評価：",
+      "loading": "読み込み中...",
+      "loadMore": "さらにメッセージを読み込む",
+      "endMessage": "コーチングメッセージの最後に到達しました",
+      "analysisPendingTitle": "詳細分析をバックグラウンドで実行中",
+      "analysisPendingBody": "まずはテンプレートで即座にお返事しました。数分後に高度なAI分析の結果が届きます。"
+    },
+    "empty": {
+      "title": "コーチングメッセージがありません",
+      "description": "個人向けコーチングメッセージの受信を開始するために、いくつかのチェックインを完了してください。"
+    },
+    "error": {
+      "loadFailed": "コーチングメッセージの読み込みに失敗しました",
+      "tryAgain": "再試行",
+      "feedbackFailed": "フィードバックの送信に失敗しました"
+    },
+    "dateFormat": {
+      "today": "今日",
+      "yesterday": "昨日"
+    }
+  },
+  "history": {
+    "title": "あなたの履歴",
+    "subtitle": "詳細な洞察と分析を含む完全なチェックインとコーチングメッセージのタイムラインを表示します。",
+    "stats": {
+      "title": "概要",
+      "totalCheckins": "総チェックイン数",
+      "totalInterventions": "コーチングメッセージ",
+      "avgMoodScore": "平均気分",
+      "streakDays": "現在の連続記録",
+      "moodTrend": "気分の傾向",
+      "energyDistribution": "エネルギー分布",
+      "dateRange": "期間",
+      "day": "日",
+      "days": "日"
+    },
+    "filters": {
+      "title": "フィルター",
+      "type": {
+        "label": "タイプ",
+        "all": "すべて",
+        "checkins": "チェックインのみ",
+        "interventions": "メッセージのみ"
+      },
+      "dateRange": {
+        "label": "期間",
+        "week": "過去1週間",
+        "month": "過去1ヶ月",
+        "quarter": "過去3ヶ月",
+        "all": "全期間"
+      },
+      "moodRange": {
+        "label": "気分の範囲",
+        "min": "最低気分",
+        "max": "最高気分",
+        "any": "すべて"
+      },
+      "templateTypes": {
+        "label": "メッセージタイプ",
+        "compassion": "セルフケア",
+        "reflection": "振り返り",
+        "action": "アクション",
+        "all": "すべてのタイプ"
+      },
+      "apply": "フィルターを適用",
+      "clear": "すべてクリア",
+      "showFilters": "フィルターを表示",
+      "hideFilters": "フィルターを非表示"
+    },
+    "timeline": {
+      "title": "タイムライン",
+      "loading": "履歴を読み込み中...",
+      "loadMore": "さらに読み込む",
+      "noMore": "履歴の最後に到達しました",
+      "empty": {
+        "title": "履歴がありません",
+        "description": "最初の日次チェックインを完了して旅を始めましょう。",
+        "action": "ダッシュボードへ"
+      },
+      "groupedItem": {
+        "checkinAndMessages": "{count}件のメッセージ付きチェックイン",
+        "checkinAndMessages_plural": "{count}件のメッセージ付きチェックイン"
+      }
+    },
+    "items": {
+      "checkin": {
+        "mood": "気分",
+        "energy": "エネルギー",
+        "note": "メモ",
+        "noNote": "追加メモなし"
+      },
+      "intervention": {
+        "title": "コーチングメッセージ",
+        "feedback": "あなたの評価",
+        "noFeedback": "未評価",
+        "rateNow": "このメッセージを評価"
+      },
+      "badges": {
+        "ai": "AI生成",
+        "template": "テンプレート",
+        "viewed": "閲覧済み",
+        "unviewed": "新着",
+        "analysisPending": "詳細分析待ち",
+        "analysisReady": "詳細分析完了"
+      }
+    },
+    "trends": {
+      "improving": "改善中",
+      "declining": "低下中",
+      "stable": "安定"
+    },
+    "energy": {
+      "low": "低い",
+      "mid": "普通",
+      "high": "高い"
+    },
+    "mood": {
+      "1": "とても低い",
+      "2": "低い",
+      "3": "普通",
+      "4": "良い",
+      "5": "素晴らしい"
+    },
+    "dateFormat": {
+      "today": "今日",
+      "yesterday": "昨日",
+      "daysAgo": "{days}日前",
+      "weeksAgo": "{weeks}週間前",
+      "weeksAgo_plural": "{weeks}週間前",
+      "monthsAgo": "{months}ヶ月前",
+      "monthsAgo_plural": "{months}ヶ月前",
+      "timeFormat": "{time}に"
+    },
+    "pagination": {
+      "showing": "{total}件中{start}-{end}件を表示",
+      "loadMore": "さらに読み込む",
+      "loading": "読み込み中...",
+      "noMore": "読み込むアイテムがありません"
+    },
+    "error": {
+      "loadFailed": "履歴の読み込みに失敗しました",
+      "tryAgain": "再試行",
+      "networkError": "ネットワークエラー。接続を確認して再試行してください。",
+      "serverError": "サーバーエラー。後でもう一度お試しください。",
+      "filterError": "フィルターの適用に失敗しました"
+    }
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "アカウント設定と個人設定を管理",
+    "navigation": {
+      "title": "設定",
+      "password": "パスワード",
+      "profile": "プロフィール",
+      "preferences": "設定",
+      "security": "セキュリティ",
+      "ariaLabel": "設定ナビゲーション",
+      "currentSection": "（現在のセクション）"
+    },
+    "password": {
+      "title": "パスワード変更",
+      "description": "アカウントのパスワードを更新",
+      "newPassword": "新しいパスワード",
+      "confirmPassword": "新しいパスワードの確認",
+      "newPasswordPlaceholder": "新しいパスワードを入力",
+      "confirmPasswordPlaceholder": "新しいパスワードを確認",
+      "updateButton": "パスワードを更新",
+      "updating": "更新中...",
+      "strength": "パスワード強度:",
+      "requirements": "パスワード要件:",
+      "requirementsList": "パスワード要件リスト",
+      "satisfied": "満たしています",
+      "notSatisfied": "満たしていません",
+      "showPassword": "パスワードを表示",
+      "hidePassword": "パスワードを非表示",
+      "showConfirmPassword": "確認パスワードを表示",
+      "hideConfirmPassword": "確認パスワードを非表示",
+      "formLabel": "パスワード変更フォーム",
+      "success": "パスワードが正常に更新されました",
+      "successMessage": "パスワードが正常に変更されました。",
+      "errors": {
+        "updateFailed": "パスワードの更新に失敗しました。もう一度お試しください。",
+        "passwordMismatch": "パスワードが一致しません",
+        "weakPassword": "パスワードがセキュリティ要件を満たしていません"
+      }
+    },
+    "profile": {
+      "title": "プロフィール設定",
+      "description": "プロフィール情報を管理",
+      "comingSoon": "プロフィール設定は近日公開..."
+    },
+    "preferences": {
+      "title": "設定",
+      "description": "体験をカスタマイズ",
+      "comingSoon": "設定は近日公開..."
+    },
+    "security": {
+      "title": "セキュリティ設定",
+      "description": "アカウントセキュリティを管理",
+      "comingSoon": "セキュリティ設定は近日公開..."
+    }
+  }
+}

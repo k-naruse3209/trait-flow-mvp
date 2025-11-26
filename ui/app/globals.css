@@ -1,0 +1,197 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    
+    /* Vietnamese-optimized font stacks */
+    --font-vietnamese: 'Geist', 'Inter', 'SF Pro Display', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Noto Sans', 'Source Sans Pro', 'Open Sans', system-ui, sans-serif;
+    --font-vietnamese-mono: 'Geist Mono', 'SF Mono', 'Monaco', 'Cascadia Code', 'Roboto Mono', 'Consolas', 'Liberation Mono', 'Menlo', monospace;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Vietnamese locale-specific font styling */
+  [lang="vi"] {
+    font-family: var(--font-vietnamese);
+    font-display: swap;
+    /* Optimize line-height for Vietnamese diacritics */
+    line-height: 1.6;
+    /* Slightly increase letter-spacing for better diacritic rendering */
+    letter-spacing: 0.01em;
+    /* Prevent layout shift during font loading */
+    font-size-adjust: 0.5;
+    /* Optimize for Vietnamese text rendering */
+    font-variant-ligatures: common-ligatures;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  
+  /* Vietnamese monospace fonts for code blocks */
+  [lang="vi"] code,
+  [lang="vi"] pre,
+  [lang="vi"] .font-mono {
+    font-family: var(--font-vietnamese-mono);
+    font-display: swap;
+  }
+  
+  /* Ensure Vietnamese text renders properly in all contexts */
+  [lang="vi"] * {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Prevent text overflow with Vietnamese diacritics */
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  
+  /* Optimize Vietnamese text in headings */
+  [lang="vi"] h1,
+  [lang="vi"] h2,
+  [lang="vi"] h3,
+  [lang="vi"] h4,
+  [lang="vi"] h5,
+  [lang="vi"] h6 {
+    /* Increase line-height for headings with diacritics */
+    line-height: 1.4;
+    /* Ensure proper spacing for large Vietnamese text */
+    letter-spacing: 0.005em;
+  }
+  
+  /* Optimize Vietnamese text in buttons and interactive elements */
+  [lang="vi"] button,
+  [lang="vi"] .btn,
+  [lang="vi"] input,
+  [lang="vi"] textarea {
+    /* Ensure Vietnamese text fits properly in form elements */
+    line-height: 1.5;
+  }
+}
+
+@layer components {
+  /* OTP Input animations */
+  .otp-input-focus {
+    @apply ring-2 ring-blue-500 ring-offset-2 border-blue-500 scale-105;
+  }
+  
+  /* Smooth fade transitions */
+  .fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  .slide-in-right {
+    animation: slideInRight 0.5s ease-in-out;
+  }
+  
+  .slide-in-left {
+    animation: slideInLeft 0.5s ease-in-out;
+  }
+  
+  /* Success pulse animation */
+  .success-pulse {
+    animation: successPulse 0.6s ease-in-out;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

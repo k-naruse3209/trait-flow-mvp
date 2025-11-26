@@ -1,0 +1,701 @@
+{
+  "common": {
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "cancel": "Hủy",
+    "save": "Lưu",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước",
+    "submit": "Gửi",
+    "close": "Đóng"
+  },
+  "navigation": {
+    "home": "Trang chủ",
+    "dashboard": "Dashboard",
+    "assessment": "Đánh giá",
+    "results": "Kết quả",
+    "messages": "Tin nhắn",
+    "history": "Lịch sử",
+    "settings": "Cài đặt",
+    "signIn": "Đăng nhập",
+    "signUp": "Đăng ký",
+    "signOut": "Đăng xuất"
+  },
+  "auth": {
+    "login": {
+      "title": "Đăng nhập vào tài khoản",
+      "description": "Nhập email và mật khẩu để truy cập tài khoản của bạn",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "emailPlaceholder": "example@email.com",
+      "passwordPlaceholder": "Nhập mật khẩu của bạn",
+      "signInButton": "Đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản?",
+      "signUpLink": "Đăng ký tại đây",
+      "otpLogin": "OTP",
+      "passwordLogin": "Mật khẩu"
+    },
+    "otp": {
+      "title": "Đăng nhập bằng OTP",
+      "enterOtpTitle": "Nhập mã OTP",
+      "description": "Nhập email để nhận mã OTP xác thực",
+      "otpSentDescription": "Mã OTP đã được gửi đến {email}",
+      "emailLabel": "Địa chỉ email",
+      "otpLabel": "Nhập mã OTP (6 chữ số)",
+      "sendOtp": "Gửi mã OTP",
+      "verifyOtp": "Xác thực OTP",
+      "resendOtp": "Gửi lại OTP",
+      "resendCountdown": "Gửi lại sau {seconds}s",
+      "backToEmail": "← Quay lại nhập email",
+      "autoVerifying": "Đang tự động xác thực...",
+      "sending": "Đang gửi...",
+      "verifying": "Đang xác thực...",
+      "resending": "Đang gửi lại...",
+      "errors": {
+        "invalidEmail": "Email không đúng định dạng",
+        "invalidOtp": "Vui lòng nhập mã OTP 6 chữ số",
+        "otpExpired": "Mã OTP không chính xác hoặc đã hết hạn. Vui lòng yêu cầu mã mới",
+        "networkError": "Lỗi kết nối mạng. Vui lòng kiểm tra kết nối internet và thử lại",
+        "tooManyRequests": "Bạn đã gửi quá nhiều yêu cầu. Vui lòng thử lại sau vài phút",
+        "signupDisabled": "Tính năng đăng ký đã bị tắt. Vui lòng liên hệ quản trị viên"
+      }
+    },
+    "signUp": {
+      "title": "Đăng ký",
+      "description": "Tạo tài khoản mới",
+      "email": "Email",
+      "password": "Mật khẩu",
+      "repeatPassword": "Nhập lại mật khẩu",
+      "emailPlaceholder": "m@example.com",
+      "signUpButton": "Đăng ký",
+      "creatingAccount": "Đang tạo tài khoản...",
+      "haveAccount": "Đã có tài khoản?",
+      "loginLink": "Đăng nhập",
+      "errors": {
+        "passwordMismatch": "Mật khẩu không khớp",
+        "generalError": "Có lỗi xảy ra"
+      }
+    },
+    "forgotPassword": {
+      "title": "Đặt lại mật khẩu",
+      "description": "Nhập email của bạn và chúng tôi sẽ gửi liên kết đặt lại mật khẩu",
+      "email": "Email",
+      "emailPlaceholder": "m@example.com",
+      "sendButton": "Gửi email đặt lại",
+      "sending": "Đang gửi...",
+      "haveAccount": "Đã có tài khoản?",
+      "loginLink": "Đăng nhập",
+      "success": {
+        "title": "Kiểm tra email của bạn",
+        "description": "Hướng dẫn đặt lại mật khẩu đã được gửi",
+        "message": "Nếu bạn đã đăng ký bằng email và mật khẩu, bạn sẽ nhận được email đặt lại mật khẩu."
+      },
+      "errors": {
+        "generalError": "Có lỗi xảy ra"
+      }
+    }
+  },
+  "assessment": {
+    "title": "Đánh giá tính cách",
+    "subtitle": "Ten-Item Personality Inventory (TIPI)",
+    "intro": {
+      "purpose": "Mục đích của bài đánh giá",
+      "description": "Bài đánh giá tính cách TIPI giúp xác định 5 đặc điểm tính cách chính của bạn:",
+      "traits": {
+        "extraversion": "Extraversion: Mức độ hướng ngoại, năng động",
+        "agreeableness": "Agreeableness: Mức độ dễ chịu, hợp tác",
+        "conscientiousness": "Conscientiousness: Mức độ có trách nhiệm, kỷ luật",
+        "neuroticism": "Neuroticism: Mức độ lo lắng, căng thẳng",
+        "openness": "Openness: Mức độ cởi mở với trải nghiệm mới"
+      },
+      "instructions": {
+        "title": "Hướng dẫn:",
+        "items": [
+          "• Bài đánh giá gồm 10 câu hỏi",
+          "• Mỗi câu hỏi đánh giá từ 1 (hoàn toàn không đồng ý) đến 7 (hoàn toàn đồng ý)",
+          "• Hãy trả lời một cách trung thực nhất",
+          "• Thời gian hoàn thành khoảng 2-3 phút"
+        ]
+      },
+      "startButton": "Bắt đầu đánh giá"
+    },
+    "questions": {
+      "progress": "Câu hỏi {current} / {total}",
+      "prompt": "Tôi thấy bản thân là người...",
+      "scale": {
+        "1": "Hoàn toàn không đồng ý",
+        "2": "Không đồng ý",
+        "3": "Hơi không đồng ý",
+        "4": "Trung lập",
+        "5": "Hơi đồng ý",
+        "6": "Đồng ý",
+        "7": "Hoàn toàn đồng ý"
+      },
+      "instruction": "Bạn đồng ý với nhận định này ở mức độ nào?",
+      "completeButton": "Hoàn thành đánh giá",
+      "answered": "Đã trả lời",
+      "unanswered": "Chưa trả lời",
+      "current": "Câu hiện tại"
+    },
+    "completion": {
+      "title": "Hoàn thành!",
+      "message": "Cảm ơn bạn đã hoàn thành bài đánh giá tính cách.",
+      "redirect": "Bạn sẽ được chuyển đến trang kết quả để xem phân tích chi tiết..."
+    },
+    "error": {
+      "title": "Có lỗi xảy ra",
+      "message": "Không thể lưu kết quả đánh giá",
+      "retryButton": "Thử lại"
+    },
+    "submitting": {
+      "title": "Đang xử lý kết quả...",
+      "message": "Vui lòng đợi trong giây lát"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Chào mừng trở lại! Theo dõi tâm trạng và mức năng lượng của bạn.",
+    "loading": "Đang tải...",
+    "checkin": {
+      "title": "Check-in hàng ngày",
+      "description": "Bạn cảm thấy thế nào hôm nay? Chia sẻ tâm trạng và mức năng lượng của bạn.",
+      "completed": "Đã hoàn thành check-in hàng ngày",
+      "completedAt": "Đã check-in hôm nay lúc",
+      "moodScore": "Điểm tâm trạng",
+      "energyLevel": "Mức năng lượng",
+      "additionalNotes": "Ghi chú thêm (Tùy chọn)",
+      "notesPlaceholder": "Bạn cảm thấy thế nào hôm nay? Có suy nghĩ gì muốn chia sẻ...",
+      "notesHelper": "Chia sẻ bất cứ điều gì trong tâm trí (tùy chọn)",
+      "notesHelperMobile": "Ghi chú tùy chọn",
+      "submitButton": "Gửi check-in",
+      "submitting": "Đang gửi...",
+      "completionMessage": "✅ Bạn đã hoàn thành check-in hàng ngày. Hẹn gặp lại ngày mai!",
+      "yourNote": "Ghi chú của bạn:",
+      "loadingStatus": "Đang tải trạng thái check-in của bạn...",
+      "tryAgain": "Thử lại",
+      "mood": {
+        "veryLow": "Rất thấp",
+        "low": "Thấp",
+        "neutral": "Trung tính",
+        "good": "Tốt",
+        "excellent": "Xuất sắc"
+      },
+      "energy": {
+        "low": "Thấp",
+        "lowDescription": "Mệt mỏi, kiệt sức",
+        "medium": "Trung bình",
+        "mediumDescription": "Cân bằng",
+        "high": "Cao",
+        "highDescription": "Năng động, tích cực",
+        "lowEnergy": "Năng lượng thấp",
+        "mediumEnergy": "Năng lượng trung bình",
+        "highEnergy": "Năng lượng cao"
+      },
+      "errors": {
+        "moodScore": "Điểm tâm trạng phải từ 1 đến 5",
+        "energyLevel": "Vui lòng chọn mức năng lượng",
+        "freeText": "Văn bản tự do phải có 280 ký tự trở xuống",
+        "loginRequired": "Vui lòng đăng nhập để xem check-in của bạn",
+        "loadFailed": "Không thể tải trạng thái check-in",
+        "submitFailed": "Không thể gửi check-in"
+      },
+      "feedbackGate": {
+        "title": "Đánh giá thông điệp trước để mở khóa lượt check-in tiếp theo",
+        "subtitle": "Bạn có tin nhắn cần đánh giá trước khi check-in tiếp theo.",
+        "placeholderTitle": "Tin nhắn huấn luyện mới nhất",
+        "copy": "Chúng tôi gửi mẫu phản hồi ngay để động viên bạn. Chấm 1-5 sao để AI học nhanh hơn.",
+        "rateLabel": "Thông điệp này hữu ích không?",
+        "reward": "Đánh giá để mở khóa check-in hôm nay và nhận thêm 5 điểm streak.",
+        "locked": "Check-in mới sẽ bị khóa cho đến khi bạn đánh giá tin nhắn trước.",
+        "viewMessages": "Mở hộp tin nhắn",
+        "error": "Không thể lưu đánh giá, hãy thử lại."
+      }
+    },
+    "analytics": {
+      "title": "Phân tích tâm trạng",
+      "description": "Hiểu biết về tâm trạng và năng lượng của bạn",
+      "basedOn": "Dựa trên {count} check-in trong 30 ngày qua",
+      "calculating": "Đang tính toán phân tích của bạn...",
+      "noData": "Chưa có dữ liệu",
+      "noDataDescription": "Hoàn thành một vài check-in để xem phân tích tâm trạng và năng lượng của bạn.",
+      "averageMood": "Tâm trạng trung bình",
+      "moodTrend": "Xu hướng tâm trạng",
+      "checkinStreak": "Chuỗi check-in",
+      "energyDistribution": "Phân bố năng lượng",
+      "totalCheckins": "Tổng check-in",
+      "day": "ngày",
+      "days": "ngày",
+      "trends": {
+        "improving": "Đang cải thiện",
+        "declining": "Đang giảm",
+        "stable": "Ổn định"
+      },
+      "energy": {
+        "low": "🔋 Thấp",
+        "mid": "🔋🔋 Trung bình",
+        "high": "🔋🔋🔋 Cao"
+      }
+    },
+    "interventions": {
+      "title": "Tin nhắn Coaching mới nhất",
+      "description": "Hướng dẫn cá nhân hóa dựa trên check-in của bạn",
+      "loading": "Đang tải tin nhắn mới nhất của bạn...",
+      "noMessage": "Chưa có tin nhắn coaching",
+      "noMessageDescription": "Hoàn thành một vài check-in để nhận tin nhắn coaching được cá nhân hóa dựa trên mô hình tâm trạng của bạn.",
+      "refresh": "Làm mới"
+    },
+    "history": {
+      "title": "Lịch sử Check-in",
+      "description": "Theo dõi tâm trạng và năng lượng gần đây của bạn",
+      "showing": "Hiển thị {start}-{end} trong tổng số {total} check-in",
+      "loading": "Đang tải lịch sử check-in của bạn...",
+      "noHistory": "Chưa có check-in",
+      "noHistoryDescription": "Bắt đầu theo dõi tâm trạng và mức năng lượng bằng cách gửi check-in hàng ngày đầu tiên của bạn.",
+      "today": "Hôm nay",
+      "yesterday": "Hôm qua",
+      "daysAgo": "{days} ngày trước",
+      "mood": "Tâm trạng",
+      "energy": "Năng lượng",
+      "energyLevel": "Mức năng lượng",
+      "pagination": {
+        "previous": "Trước",
+        "next": "Tiếp theo",
+        "page": "Trang {current} trong tổng số {total}"
+      }
+    },
+    "errors": {
+      "loadFailed": "Không thể tải dữ liệu",
+      "tryAgain": "Thử lại"
+    }
+  },
+  "results": {
+    "title": "Kết quả đánh giá",
+    "subtitle": "Đây là kết quả đánh giá tính cách của bạn dựa trên mô hình Big Five.",
+    "yourResults": "Kết quả đánh giá của bạn",
+    "errorTitle": "Kết quả đánh giá",
+    "errorSubtitle": "Chúng tôi gặp sự cố khi tải kết quả của bạn.",
+    "noResultsTitle": "Kết quả đánh giá",
+    "noResultsSubtitle": "Khám phá những hiểu biết về tính cách của bạn với bài đánh giá được xác thực khoa học.",
+    "overview": {
+      "title": "Tổng quan đánh giá",
+      "completedOn": "Hoàn thành vào ngày",
+      "instrument": "Công cụ",
+      "returnToDashboard": "Quay lại Dashboard",
+      "retakeAssessment": "Làm lại đánh giá"
+    },
+    "chart": {
+      "title": "Hồ sơ tính cách của bạn",
+      "tScoreInfo": "Điểm T: Điểm chuẩn hóa với trung bình=50, độ lệch chuẩn=10. Điểm 40-60 là mức trung bình.",
+      "normalizedInfo": "Thang 0-1: Điểm chuẩn hóa trong đó 0.5 đại diện cho mức trung bình của mỗi đặc điểm.",
+      "understandingScores": "Hiểu điểm số của bạn",
+      "traitDescriptions": {
+        "extraversion": "Năng lượng xã hội, quyết đoán, cảm xúc tích cực",
+        "agreeableness": "Hợp tác, tin tưởng, đồng cảm",
+        "conscientiousness": "Tổ chức, kỷ luật, hành vi hướng mục tiêu",
+        "neuroticism": "Bất ổn cảm xúc, lo lắng, cảm xúc tiêu cực",
+        "openness": "Sáng tạo, tò mò, cởi mở với trải nghiệm mới"
+      }
+    },
+    "scores": {
+      "title": "Tóm tắt điểm số",
+      "normalized": "Điểm chuẩn hóa (thang 0-1)",
+      "tScores": "Điểm T (thang 0-100)"
+    },
+    "traits": {
+      "extraversion": "Hướng ngoại",
+      "agreeableness": "Dễ chịu",
+      "conscientiousness": "Tận tâm",
+      "neuroticism": "Bất ổn cảm xúc",
+      "openness": "Cởi mở"
+    },
+    "noResults": {
+      "title": "Chưa có kết quả đánh giá",
+      "subtitle": "Khám phá những hiểu biết về tính cách của bạn với bài đánh giá được xác thực khoa học.",
+      "mainTitle": "Chưa có kết quả đánh giá",
+      "mainDescription": "Thực hiện bài đánh giá tính cách đầu tiên để mở khóa những hiểu biết chi tiết về bản thân",
+      "description": "Bài đánh giá tính cách của chúng tôi sử dụng mô hình Big Five được xác thực khoa học để giúp bạn hiểu những đặc điểm độc đáo, mô hình hành vi và cách bạn tương tác với thế giới xung quanh.",
+      "takeAssessment": "Thực hiện đánh giá ngay",
+      "quickInfo": "Chỉ mất 2-3 phút • Hoàn toàn miễn phí • Kết quả ngay lập tức",
+      "discover": {
+        "title": "Những gì bạn sẽ khám phá",
+        "subtitle": "Bài đánh giá tính cách sẽ cung cấp hiểu biết về năm lĩnh vực chính",
+        "extraversion": {
+          "title": "Hướng ngoại",
+          "description": "Cách bạn tích lũy năng lượng và tương tác xã hội"
+        },
+        "agreeableness": {
+          "title": "Dễ chịu",
+          "description": "Cách tiếp cận hợp tác và tin tương của bạn"
+        },
+        "conscientiousness": {
+          "title": "Tận tâm",
+          "description": "Tổ chức và hành vi hướng mục tiêu của bạn"
+        },
+        "neuroticism": {
+          "title": "Bất ổn cảm xúc",
+          "description": "Sự ổn định cảm xúc và phản ứng với căng thẳng"
+        },
+        "openness": {
+          "title": "Cởi mở",
+          "description": "Sự tò mò và cởi mở với trải nghiệm mới"
+        },
+        "analysis": {
+          "title": "Phân tích chi tiết",
+          "description": "Biểu đồ trực quan và giải thích cá nhân hóa"
+        }
+      },
+      "howItWorks": {
+        "title": "Cách thức hoạt động",
+        "subtitle": "Đơn giản, nhanh chóng và được xác thực khoa học",
+        "step1": {
+          "title": "Trả lời 10 câu hỏi",
+          "description": "Đánh giá mức độ đồng ý với các nhận định tính cách đơn giản"
+        },
+        "step2": {
+          "title": "Nhận điểm số",
+          "description": "Nhận điểm số chi tiết trên tất cả năm chiều tính cách"
+        },
+        "step3": {
+          "title": "Khám phá hiểu biết",
+          "description": "Hiểu ý nghĩa kết quả đối với cuộc sống hàng ngày"
+        }
+      },
+      "finalCta": "Bắt đầu đánh giá tính cách",
+      "joinUsers": "Tham gia cùng hàng nghìn người dùng đã khám phá hiểu biết về tính cách"
+    },
+    "error": {
+      "title": "Không thể tải kết quả",
+      "subtitle": "Chúng tôi gặp sự cố khi truy xuất kết quả đánh giá của bạn",
+      "errorLabel": "Lỗi",
+      "description": "Điều này có thể do sự cố mạng tạm thời hoặc vấn đề máy chủ. Vui lòng thử lại hoặc liên hệ hỗ trợ nếu sự cố vẫn tiếp tục.",
+      "tryAgain": "Thử lại",
+      "returnToDashboard": "Quay lại Dashboard",
+      "retakeAssessment": "Làm lại đánh giá",
+      "troubleshooting": {
+        "title": "Nếu vấn đề vẫn tiếp tục, vui lòng thử:",
+        "refresh": "Làm mới trang",
+        "connection": "Kiểm tra kết nối internet",
+        "cache": "Xóa bộ nhớ đệm trình duyệt",
+        "wait": "Thử lại sau vài phút"
+      }
+    },
+    "interpretation": {
+      "title": "Phân tích tính cách chi tiết",
+      "subtitle": "Khám phá những gì điểm số Big Five của bạn tiết lộ về xu hướng hành vi, sở thích và cách bạn thường tương tác với thế giới xung quanh.",
+      "aboutModel": {
+        "title": "Về mô hình Big Five",
+        "description": "Mô hình tính cách Big Five là một trong những khung lý thuyết được xác thực khoa học nhất để hiểu tính cách. Nó đo lường năm chiều rộng lớn nắm bắt những cách quan trọng nhất mà con người khác biệt với nhau về mặt tâm lý.",
+        "note": "Hãy nhớ rằng các đặc điểm tính cách tồn tại trên một phổ liên tục, và không có điểm số \"tốt\" hay \"xấu\". Mỗi đặc điểm đều có ưu điểm và thách thức, và kết quả tốt nhất thường đến từ việc hiểu và tận dụng xu hướng tự nhiên của bạn."
+      },
+      "whatThisMeans": "Ý nghĩa của điều này:",
+      "yourTendency": "Xu hướng của bạn:",
+      "higher": "Cao hơn",
+      "lower": "Thấp hơn",
+      "levels": {
+        "veryHigh": "Rất cao - Đặc điểm này rất nổi bật trong tính cách của bạn",
+        "high": "Cao - Đặc điểm này khá dễ nhận thấy trong hành vi của bạn",
+        "moderate": "Trung bình - Bạn thể hiện mức độ trung bình của đặc điểm này",
+        "low": "Thấp - Đặc điểm này ít nổi bật trong tính cách của bạn",
+        "veryLow": "Rất thấp - Đặc điểm này hiếm khi được thể hiện trong hành vi của bạn",
+        "neuroticismVeryHigh": "Rất cao - Bạn có thể trải qua những thăng trầm cảm xúc thường xuyên",
+        "neuroticismHigh": "Cao - Bạn có xu hướng phản ứng cảm xúc mạnh hơn",
+        "neuroticismModerate": "Trung bình - Bạn có sự ổn định cảm xúc ở mức trung bình",
+        "neuroticismLow": "Thấp - Bạn có xu hướng ổn định về mặt cảm xúc",
+        "neuroticismVeryLow": "Rất thấp - Bạn đặc biệt bình tĩnh và kiên cường về mặt cảm xúc"
+      },
+      "traitDescriptions": {
+        "extraversion": {
+          "name": "Hướng ngoại",
+          "description": "Đo lường xu hướng tìm kiếm kích thích từ thế giới bên ngoài, bao gồm tương tác xã hội và hoạt động bên ngoài.",
+          "high": "Bạn có xu hướng hướng ngoại, năng động và quyết đoán. Bạn thích các tình huống xã hội, tìm kiếm sự phấn khích và thoải mái khi trở thành tâm điểm chú ý.",
+          "low": "Bạn có xu hướng dè dặt, yên tĩnh và nội tâm hơn. Bạn thích các nhóm nhỏ hoặc hoạt động một mình và có thể cần thời gian riêng để nạp lại năng lượng.",
+          "moderate": "Bạn thể hiện mức độ hướng ngoại vừa phải. Bạn có thể thể hiện cả hành vi hướng ngoại và hướng nội tùy thuộc vào tình huống."
+        },
+        "agreeableness": {
+          "name": "Dễ chịu",
+          "description": "Phản ánh xu hướng hợp tác, tin tưởng và chu đáo trong tương tác với người khác.",
+          "high": "Bạn có xu hướng thương cảm, tin tưởng và hữu ích. Bạn coi trọng sự hòa hợp trong các mối quan hệ và thường lạc quan về bản chất con người.",
+          "low": "Bạn có xu hướng hoài nghi, cạnh tranh và thẳng thắn hơn. Bạn có thể sẵn sàng thách thức người khác và ưu tiên lợi ích của riêng mình.",
+          "moderate": "Bạn thể hiện mức độ dễ chịu vừa phải. Bạn có thể thể hiện cả hành vi dễ chịu cao và thấp tùy thuộc vào tình huống."
+        },
+        "conscientiousness": {
+          "name": "Tận tâm",
+          "description": "Đo lường xu hướng có tổ chức, có trách nhiệm và hướng mục tiêu trong cách tiếp cận nhiệm vụ và cam kết.",
+          "high": "Bạn có xu hướng có tổ chức tốt, kỷ luật và đáng tin cậy. Bạn lập kế hoạch trước, chú ý đến chi tiết và thực hiện cam kết.",
+          "low": "Bạn có xu hướng tự phát, linh hoạt và thoải mái hơn. Bạn có thể thích thích ứng khi tình huống phát sinh thay vì tuân theo kế hoạch nghiêm ngặt.",
+          "moderate": "Bạn thể hiện mức độ tận tâm vừa phải. Bạn có thể thể hiện cả hành vi tận tâm cao và thấp tùy thuộc vào tình huống."
+        },
+        "neuroticism": {
+          "name": "Bất ổn cảm xúc",
+          "description": "Phản ánh xu hướng trải qua cảm xúc tiêu cực và sự ổn định cảm xúc dưới áp lực.",
+          "high": "Bạn có thể nhạy cảm hơn với căng thẳng và dễ trải qua lo lắng, lo lắng hoặc thay đổi tâm trạng. Bạn có thể phản ứng mạnh hơn với các tình huống thách thức.",
+          "low": "Bạn có xu hướng ổn định về mặt cảm xúc, bình tĩnh và kiên cường. Bạn có khả năng giữ bình tĩnh dưới áp lực và phục hồi nhanh chóng sau thất bại.",
+          "moderate": "Bạn thể hiện mức độ bất ổn cảm xúc vừa phải. Bạn có thể thể hiện cả hành vi bất ổn cảm xúc cao và thấp tùy thuộc vào tình huống."
+        },
+        "openness": {
+          "name": "Cởi mở với trải nghiệm",
+          "description": "Đo lường sự tò mò, sáng tạo và sẵn sàng khám phá ý tưởng, trải nghiệm và cách suy nghĩ mới.",
+          "high": "Bạn có xu hướng giàu trí tưởng tượng, tò mò và cởi mở với trải nghiệm mới. Bạn thích khám phá ý tưởng, đánh giá cao nghệ thuật và vẻ đẹp, và coi trọng việc theo đuổi trí tuệ.",
+          "low": "Bạn có xu hướng thích trải nghiệm quen thuộc và cách tiếp cận thông thường. Bạn có thể thực tế hơn và tập trung vào các khái niệm cụ thể thay vì trừu tượng.",
+          "moderate": "Bạn thể hiện mức độ cởi mở vừa phải. Bạn có thể thể hiện cả hành vi cởi mở cao và thấp tùy thuộc vào tình huống."
+        }
+      },
+      "summary": {
+        "title": "Hiểu hồ sơ độc đáo của bạn",
+        "description": "Hồ sơ tính cách của bạn là độc nhất. Mặc dù những điểm số này cung cấp hiểu biết về các mô hình suy nghĩ, cảm nhận và hành vi điển hình của bạn, hãy nhớ rằng:",
+        "points": {
+          "0": "Tính cách có thể được thể hiện khác nhau trong các bối cảnh khác nhau",
+          "1": "Bạn có khả năng thích ứng hành vi khi cần thiết",
+          "2": "Tất cả các loại tính cách đều có điểm mạnh và lĩnh vực cần phát triển",
+          "3": "Hiểu xu hướng của bạn có thể giúp bạn đưa ra quyết định tốt hơn về các mối quan hệ, sự nghiệp và phát triển cá nhân"
+        },
+        "conclusion": "Hãy xem xét cách những hiểu biết này có thể áp dụng vào cuộc sống hàng ngày, các mối quan hệ và mục tiêu của bạn. Nhận thức về tính cách là một công cụ mạnh mẽ cho sự phát triển cá nhân và hiểu biết bản thân tốt hơn."
+      }
+    }
+  },
+  "gettingStarted": {
+    "title": "Bắt đầu",
+    "description": "Thực hiện các bước sau để mở khóa tất cả tính năng và bắt đầu hành trình AI coaching",
+    "step1": {
+      "title": "Hoàn thành đánh giá tính cách để mở khóa các tính năng cá nhân hóa",
+      "description": "Thực hiện bài đánh giá TIPI để nhận được AI coaching được cá nhân hóa dựa trên tính cách của bạn."
+    },
+    "step2": {
+      "title": "Bắt đầu check-in hàng ngày để nhận AI coaching",
+      "description": "Chia sẻ trải nghiệm hàng ngày và nhận những hiểu biết coaching được cá nhân hóa."
+    },
+    "step3": {
+      "title": "Đánh giá và xếp hạng tin nhắn coaching của bạn",
+      "description": "Giúp cải thiện AI coach của bạn bằng cách cung cấp phản hồi về các tin nhắn bạn nhận được."
+    }
+  },
+  "messages": {
+    "title": "Tin nhắn Coaching của bạn",
+    "subtitle": "Xem lại các tin nhắn AI coaching được cá nhân hóa và cung cấp phản hồi để cải thiện các đề xuất trong tương lai.",
+    "stats": {
+      "totalMessages": "Tổng tin nhắn",
+      "withFeedback": "Có phản hồi",
+      "aiGenerated": "AI tạo ra",
+      "avgRating": "Đánh giá TB"
+    },
+    "templateTypes": {
+      "compassion": "Tự chăm sóc",
+      "reflection": "Suy ngẫm",
+      "action": "Hành động",
+      "coaching": "Coaching"
+    },
+    "badges": {
+      "ai": "AI",
+      "template": "Mẫu",
+      "analysisPending": "Đang phân tích chi tiết",
+      "analysisReady": "Đã có phân tích"
+    },
+    "feedback": {
+      "rateMessage": "Đánh giá tin nhắn này:",
+      "loading": "Đang tải...",
+      "loadMore": "Tải thêm tin nhắn",
+      "endMessage": "Bạn đã xem hết tất cả tin nhắn coaching",
+      "analysisPendingTitle": "Đang chạy phân tích chi tiết ở nền",
+      "analysisPendingBody": "Chúng tôi đã gửi mẫu nhanh để động viên bạn. Phân tích AI sâu hơn sẽ sẵn sàng sau vài phút."
+    },
+    "empty": {
+      "title": "Chưa có tin nhắn coaching",
+      "description": "Hoàn thành một số check-in để bắt đầu nhận tin nhắn coaching được cá nhân hóa."
+    },
+    "error": {
+      "loadFailed": "Không thể tải tin nhắn coaching",
+      "tryAgain": "Thử lại",
+      "feedbackFailed": "Không thể gửi phản hồi"
+    },
+    "dateFormat": {
+      "today": "Hôm nay lúc",
+      "yesterday": "Hôm qua lúc"
+    }
+  },
+  "history": {
+    "title": "Lịch sử của bạn",
+    "subtitle": "Xem dòng thời gian hoàn chỉnh check-in và tin nhắn coaching với thông tin chi tiết và phân tích.",
+    "stats": {
+      "title": "Tổng quan",
+      "totalCheckins": "Tổng Check-in",
+      "totalInterventions": "Tin nhắn Coaching",
+      "avgMoodScore": "Tâm trạng trung bình",
+      "streakDays": "Chuỗi hiện tại",
+      "moodTrend": "Xu hướng tâm trạng",
+      "energyDistribution": "Phân bố năng lượng",
+      "dateRange": "Khoảng thời gian",
+      "day": "ngày",
+      "days": "ngày"
+    },
+    "filters": {
+      "title": "Bộ lọc",
+      "type": {
+        "label": "Loại",
+        "all": "Tất cả",
+        "checkins": "Chỉ Check-in",
+        "interventions": "Chỉ tin nhắn"
+      },
+      "dateRange": {
+        "label": "Khoảng thời gian",
+        "week": "Tuần qua",
+        "month": "Tháng qua",
+        "quarter": "3 tháng qua",
+        "all": "Tất cả thời gian"
+      },
+      "moodRange": {
+        "label": "Phạm vi tâm trạng",
+        "min": "Tâm trạng tối thiểu",
+        "max": "Tâm trạng tối đa",
+        "any": "Bất kỳ"
+      },
+      "templateTypes": {
+        "label": "Loại tin nhắn",
+        "compassion": "Tự chăm sóc",
+        "reflection": "Suy ngẫm",
+        "action": "Hành động",
+        "all": "Tất cả loại"
+      },
+      "apply": "Áp dụng bộ lọc",
+      "clear": "Xóa tất cả",
+      "showFilters": "Hiện bộ lọc",
+      "hideFilters": "Ẩn bộ lọc"
+    },
+    "timeline": {
+      "title": "Dòng thời gian",
+      "loading": "Đang tải lịch sử của bạn...",
+      "loadMore": "Tải thêm",
+      "noMore": "Bạn đã xem hết lịch sử",
+      "empty": {
+        "title": "Chưa có lịch sử",
+        "description": "Bắt đầu hành trình bằng cách hoàn thành check-in hàng ngày đầu tiên.",
+        "action": "Đi đến Dashboard"
+      },
+      "groupedItem": {
+        "checkinAndMessages": "Check-in với {count} tin nhắn",
+        "checkinAndMessages_plural": "Check-in với {count} tin nhắn"
+      }
+    },
+    "items": {
+      "checkin": {
+        "mood": "Tâm trạng",
+        "energy": "Năng lượng",
+        "note": "Ghi chú",
+        "noNote": "Không có ghi chú thêm"
+      },
+      "intervention": {
+        "title": "Tin nhắn Coaching",
+        "feedback": "Đánh giá của bạn",
+        "noFeedback": "Chưa đánh giá",
+        "rateNow": "Đánh giá tin nhắn này"
+      },
+      "badges": {
+        "ai": "AI tạo ra",
+        "template": "Mẫu",
+        "viewed": "Đã xem",
+        "unviewed": "Mới",
+        "analysisPending": "Đang phân tích",
+        "analysisReady": "Đã phân tích xong"
+      }
+    },
+    "trends": {
+      "improving": "Đang cải thiện",
+      "declining": "Đang giảm",
+      "stable": "Ổn định"
+    },
+    "energy": {
+      "low": "Thấp",
+      "mid": "Trung bình",
+      "high": "Cao"
+    },
+    "mood": {
+      "1": "Rất thấp",
+      "2": "Thấp",
+      "3": "Trung tính",
+      "4": "Tốt",
+      "5": "Xuất sắc"
+    },
+    "dateFormat": {
+      "today": "Hôm nay",
+      "yesterday": "Hôm qua",
+      "daysAgo": "{days} ngày trước",
+      "weeksAgo": "{weeks} tuần trước",
+      "weeksAgo_plural": "{weeks} tuần trước",
+      "monthsAgo": "{months} tháng trước",
+      "monthsAgo_plural": "{months} tháng trước",
+      "timeFormat": "lúc {time}"
+    },
+    "pagination": {
+      "showing": "Hiển thị {start}-{end} trong tổng số {total} mục",
+      "loadMore": "Tải thêm",
+      "loading": "Đang tải...",
+      "noMore": "Không còn mục nào để tải"
+    },
+    "error": {
+      "loadFailed": "Không thể tải lịch sử",
+      "tryAgain": "Thử lại",
+      "networkError": "Lỗi mạng. Vui lòng kiểm tra kết nối và thử lại.",
+      "serverError": "Lỗi máy chủ. Vui lòng thử lại sau.",
+      "filterError": "Không thể áp dụng bộ lọc"
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "subtitle": "Quản lý cài đặt tài khoản và tùy chọn cá nhân",
+    "navigation": {
+      "title": "Cài đặt",
+      "password": "Mật khẩu",
+      "profile": "Hồ sơ",
+      "preferences": "Tùy chọn",
+      "security": "Bảo mật",
+      "ariaLabel": "Điều hướng cài đặt",
+      "currentSection": "(phần hiện tại)"
+    },
+    "password": {
+      "title": "Đổi mật khẩu",
+      "description": "Cập nhật mật khẩu tài khoản của bạn",
+      "newPassword": "Mật khẩu mới",
+      "confirmPassword": "Xác nhận mật khẩu mới",
+      "newPasswordPlaceholder": "Nhập mật khẩu mới",
+      "confirmPasswordPlaceholder": "Xác nhận mật khẩu mới",
+      "updateButton": "Cập nhật mật khẩu",
+      "updating": "Đang cập nhật...",
+      "strength": "Độ mạnh mật khẩu:",
+      "requirements": "Yêu cầu mật khẩu:",
+      "requirementsList": "Danh sách yêu cầu mật khẩu",
+      "satisfied": "đã đáp ứng",
+      "notSatisfied": "chưa đáp ứng",
+      "showPassword": "Hiển thị mật khẩu",
+      "hidePassword": "Ẩn mật khẩu",
+      "showConfirmPassword": "Hiển thị xác nhận mật khẩu",
+      "hideConfirmPassword": "Ẩn xác nhận mật khẩu",
+      "formLabel": "Form đổi mật khẩu",
+      "success": "Cập nhật mật khẩu thành công",
+      "successMessage": "Mật khẩu của bạn đã được thay đổi thành công.",
+      "errors": {
+        "updateFailed": "Không thể cập nhật mật khẩu. Vui lòng thử lại.",
+        "passwordMismatch": "Mật khẩu không khớp",
+        "weakPassword": "Mật khẩu không đáp ứng yêu cầu bảo mật"
+      }
+    },
+    "profile": {
+      "title": "Cài đặt hồ sơ",
+      "description": "Quản lý thông tin hồ sơ của bạn",
+      "comingSoon": "Cài đặt hồ sơ sẽ có sớm..."
+    },
+    "preferences": {
+      "title": "Tùy chọn",
+      "description": "Tùy chỉnh trải nghiệm của bạn",
+      "comingSoon": "Tùy chọn sẽ có sớm..."
+    },
+    "security": {
+      "title": "Cài đặt bảo mật",
+      "description": "Quản lý bảo mật tài khoản",
+      "comingSoon": "Cài đặt bảo mật sẽ có sớm..."
+    }
+  }
+}
